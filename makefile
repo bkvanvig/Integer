@@ -38,6 +38,7 @@ clean:
 	rm -f *.gcno
 	rm -f *.gcov
 	rm -f RunInteger
+	rm -f TestInteger
 
 sync:
 	@echo `pwd`
@@ -48,7 +49,7 @@ sync:
     --exclude "*"                      \
     . downing@$(CS):cs/cs378/github/c++/integer/
 
-test: RunInteger.out
+test: RunInteger.out TestInteger.out
 
 versions:
 	uname -a
@@ -77,9 +78,29 @@ endif
 	@echo
 	doxygen --version
 
+html: Doxyfile Integer.h RunInteger.c++ TestInteger.c++
+	doxygen Doxyfile
+
+Integer.log:
+	git log > integer.log
+
+Doxyfile:
+	doxygen -g
+
 RunInteger: Integer.h RunInteger.c++
 	$(CXX) $(CXXFLAGS) RunInteger.c++ -o RunInteger
 
 RunInteger.out: RunInteger
 	./RunInteger > RunInteger.out
 	cat RunInteger.out
+
+TestInteger: Integer.h TestInteger.c++
+	$(CXX) $(COVFLAGS) $(CXXFLAGS) TestInteger.c++ -o TestInteger $(LDFLAGS)
+
+TestInteger.out: TestInteger
+	./TestInteger
+	$(VALGRIND) ./TestInteger  >  TestInteger.out 2>&1
+	$(GCOV) -b Integer.h       >> TestInteger.out
+	$(GCOV) -b TestInteger.c++ >> TestInteger.out
+	cat TestInteger.out
+
