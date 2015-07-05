@@ -149,7 +149,11 @@ class Integer {
      */
     friend bool operator == (const Integer& lhs, const Integer& rhs) {
         // <your code>
-        return false;}
+        if (lhs._x != rhs._x)
+            return false;
+        if (lhs._neg != rhs._neg)
+            return false;
+        return true;}
 
     // -----------
     // operator !=
@@ -170,7 +174,41 @@ class Integer {
      */
     friend bool operator < (const Integer& lhs, const Integer& rhs) {
         // <your code>
-        return false;}
+        bool bothneg = false;
+        int lhssize = lhs._size;
+        int rhssize = rhs._size;
+
+        //Check signs
+        if (lhs._neg == true && rhs._neg == false)
+            return true;
+        if (lhs._neg == false && rhs._neg == true)
+            return false;
+        /* If both are negative
+         * will return opposite unless equal
+         */
+        if (lhs._neg == true && rhs._neg == true)
+            bothneg = true;
+
+        //Check size
+        if (lhssize != rhssize)
+            return (bothneg ? !(lhssize < rhssize) : (lhssize < rhssize));
+
+        //All numbers reaching this point will be same sign & size  
+        int i = 0;
+        while (i < lhssize){
+            if(lhs._x.at(i) == rhs._x.at(i)){
+                ++i;
+                continue;
+            }
+            else if (lhs._x.at(i) < rhs._x.at(i))
+                return (bothneg ? false : true);  
+            else
+                return (bothneg ? true : false);
+        }
+
+        //This will always be false even if both are negative, because here the #'s are equal
+        return false; 
+    }
 
     // -----------
     // operator <=
@@ -285,7 +323,28 @@ class Integer {
      */
     friend std::ostream& operator << (std::ostream& lhs, const Integer& rhs) {
         // <your code>
-        return lhs << "0";}
+            //Boolean to determine if a 0 is significant
+            bool sigzero = false;
+            bool empty = true;
+            int size = rhs._size;
+            int i = 0;
+            if (rhs._neg)
+                lhs << "-";
+            while (i < size){
+                int value = rhs._x.at(i);
+                if (value!=0 && !sigzero)
+                    sigzero=true;
+                if (value == 0 && !sigzero){
+                    ++i;
+                    continue;
+                }
+                empty = false;
+                lhs << value;
+                ++i;
+            }
+        if (empty)
+            lhs << "0";
+        return lhs;}
 
     // ---
     // abs
@@ -316,8 +375,10 @@ class Integer {
         // ----
 
         C _x; // the backing container
-        bool sign;// <your data>
 
+        bool _neg;// sign of value, true = negative
+
+        int _size;
     private:
         // -----
         // valid
@@ -328,15 +389,60 @@ class Integer {
             return true;}
 
     public:
+        // ----------
+        // getter
+        // ----------
+        C getContainer() {
+            return _x;
+        }
+
+        int getSize(){
+            return _size;
+        }
+
+
         // ------------
         // constructors
         // ------------
 
         /**
-         * <your documentation>
+         * reads value into backing container
+         * @param value, int of number
+         * @returns Integer representation of value
          */
         Integer (int value) {
             // <your code>
+            
+            _size = 0;
+            int rev = 0;
+            _neg = false;
+
+            if (value == 0){
+                _size = 1;
+                _neg = false;
+                _x.push_back(0);
+                return;
+            }
+
+            if (value < 0){
+                _neg = true;
+                value *= -1;
+            }
+
+            while (value > 0){
+                int mod = value % 10;
+                rev *= 10;
+                rev +=mod;
+                value /= 10;
+                ++_size;
+            }
+                
+            while (rev > 0){
+                int mod = rev % 10;
+                _x.push_back(mod);
+                rev /= 10;
+            }
+            
             assert(valid());}
 
         /**
@@ -345,6 +451,19 @@ class Integer {
          */
         explicit Integer (const std::string& value) {
             // <your code>
+            std::string::const_iterator b =value.begin();
+            std::string::const_iterator e =value.end();
+            if (*b =='-'){
+                _neg = true;
+                ++b;
+            }
+            _neg = false;
+            _size = 0;
+            while (b!=e){
+                ++_size;
+                _x.push_back(*b-'0');
+                ++b;
+            }
             if (!valid())
                 throw std::invalid_argument("Integer::Integer()");}
 
@@ -362,7 +481,12 @@ class Integer {
          */
         Integer operator - () const {
             // <your code>
-            return Integer(0);}
+            Integer x = *this;
+            if (x._neg == true)
+                x._neg = false;
+            else
+                x._neg = true;
+            return x;}
 
         // -----------
         // operator ++
@@ -411,6 +535,8 @@ class Integer {
          */
         Integer& operator += (const Integer& rhs) {
             // <your code>
+            int carry = 0;
+
             return *this;}
 
         // -----------
@@ -422,6 +548,7 @@ class Integer {
          */
         Integer& operator -= (const Integer& rhs) {
             // <your code>
+            int borrow = 0;
             return *this;}
 
         // -----------
@@ -468,6 +595,11 @@ class Integer {
          */
         Integer& operator <<= (int n) {
             // <your code>
+            int i = n;
+            while (i > 0){
+                _x.push_back(0);
+                --i;
+            }
             return *this;}
 
         // ------------
@@ -490,7 +622,7 @@ class Integer {
          * <your documentation>
          */
         Integer& abs () {
-            // <your code>
+            _neg = false;
             return *this;}
 
         // ---

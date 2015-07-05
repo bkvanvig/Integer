@@ -78,6 +78,9 @@ endif
 	@echo
 	doxygen --version
 
+sha: 
+	git rev-parse HEAD
+
 html: Doxyfile Integer.h RunInteger.c++ TestInteger.c++
 	doxygen Doxyfile
 
