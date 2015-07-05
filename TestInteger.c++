@@ -356,7 +356,12 @@ TEST(IntegerFixture, output_4){
     ASSERT_EQ("45", w.str());
 }
 
-//TEST(IntegerFixture, output_5){}
+TEST(IntegerFixture, output_5){
+    Integer<int> x("400000");
+    ostringstream w;
+    w << x;
+    ASSERT_EQ("400000", w.str());
+}
 
 
 // ------------------
@@ -384,7 +389,7 @@ TEST(IntegerFixture, valid_3){
 // ------------------
 
 TEST(IntegerFixture, constr_1){
-    Integer<int> x = 123456;
+    Integer<int> x = 12345600;
     int i = 0;
     ostringstream w;
     auto y = x.getContainer();
@@ -392,7 +397,7 @@ TEST(IntegerFixture, constr_1){
         w << y.at(i);
         ++i;
     }
-    ASSERT_EQ("123456", w.str());
+    ASSERT_EQ("12345600", w.str());
 }
 
 TEST(IntegerFixture, constr_2){
@@ -428,7 +433,7 @@ TEST(IntegerFixture, constr_3){
 // ------------------
 
 TEST(IntegerFixture, exconstr_1){
-    Integer<int> x("123456");
+    Integer<int> x("12345600");
     int i = 0;
     ostringstream w;
     auto y = x.getContainer();
@@ -436,7 +441,7 @@ TEST(IntegerFixture, exconstr_1){
         w << y.at(i);
         ++i;
     }
-    ASSERT_EQ("123456", w.str());
+    ASSERT_EQ("12345600", w.str());
 }
 
 TEST(IntegerFixture, exconstr_2){
@@ -694,21 +699,30 @@ TEST(IntegerFixture, sreq_1){
     Integer<int> v = 54990;
     Integer<int> u = 549;
     v >>= 2;
-    ASSERT_TRUE(v==u);
+    ostringstream w;
+    w << v;
+    ASSERT_EQ("549", w.str());
+    //ASSERT_TRUE(v==u);
 }
 
 TEST(IntegerFixture, sreq_2){
-    Integer<int> v = 1324871239;
+    Integer<int> v ("1324871239");
     Integer<int> u = 13;
     v >>= 8;
-    ASSERT_TRUE(v==u);
+    ostringstream w;
+    w << v;
+    ASSERT_EQ("13", w.str());
+    //ASSERT_TRUE(v==u);
 }
 
 TEST(IntegerFixture, sreq_3){
-    Integer<int> v = 3733737373;
-    Integer<int> u = 373373737;
+    Integer<int> v ("3733737373");
+    Integer<int> u ("373373737");
     v >>= 1;
-    ASSERT_TRUE(v==u);
+    ostringstream w;
+    w << v;
+    ASSERT_EQ("373373737", w.str());
+    //ASSERT_TRUE(v==u);
 }
 
 //TEST(IntegerFixture, sreq_4){}

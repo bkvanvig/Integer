@@ -17,6 +17,7 @@
 #include <string>    // string
 #include <vector>    // vector
 
+using namespace std;
 // -----------------
 // shift_left_digits
 // -----------------
@@ -386,7 +387,10 @@ class Integer {
 
         bool valid () const { // class invariant
             // <your code>
-            return true;}
+            if (_size == _x.size())
+                return true;
+            return false;
+}
 
     public:
         // ----------
@@ -436,11 +440,12 @@ class Integer {
                 value /= 10;
                 ++_size;
             }
-                
-            while (rev > 0){
+            int i = _size;
+            while (i > 0){
                 int mod = rev % 10;
                 _x.push_back(mod);
                 rev /= 10;
+                --i;
             }
             
             assert(valid());}
@@ -535,7 +540,7 @@ class Integer {
          */
         Integer& operator += (const Integer& rhs) {
             // <your code>
-            int carry = 0;
+           // int carry = 0;
 
             return *this;}
 
@@ -548,7 +553,7 @@ class Integer {
          */
         Integer& operator -= (const Integer& rhs) {
             // <your code>
-            int borrow = 0;
+           // int borrow = 0;
             return *this;}
 
         // -----------
@@ -595,11 +600,16 @@ class Integer {
          */
         Integer& operator <<= (int n) {
             // <your code>
+            //This doesn't work
             int i = n;
+            int value = 0;
             while (i > 0){
+                ++_size;
                 _x.push_back(0);
                 --i;
             }
+            //cout << n;
+            //cout << *this << endl;
             return *this;}
 
         // ------------
@@ -611,6 +621,14 @@ class Integer {
          */
         Integer& operator >>= (int n) {
             // <your code>
+            int i = n;
+            while (i > 0){
+                --_size;
+                _x.pop_back();
+                --i;
+            }
+            //cout << n;
+            //cout << *this << endl;
             return *this;}
 
         // ---
