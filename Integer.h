@@ -30,11 +30,21 @@ using namespace std;
  * the sequences are of decimal digits
  * output the shift left of the input sequence into the output sequence
  * ([b, e) << n) => x
+ * example: 123456,(b, b+3, 2, x)-> 012300
  */
 template <typename II, typename OI>
 OI shift_left_digits (II b, II e, int n, OI x) {
     // <your code>
-    
+
+    while (b != e){
+        *x = *b;
+        ++b;
+        ++x;
+    }
+    while(n>0){
+        *x = 0;
+        --n;
+    }
     return x;}
 
 // ------------------
@@ -73,6 +83,9 @@ OI shift_right_digits (II b, II e, int n, OI x) {
 template <typename II1, typename II2, typename FI>
 FI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
+    int carry = 0;
+
+
     return x;}
 
 // ------------
@@ -93,6 +106,7 @@ FI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
 template <typename II1, typename II2, typename FI>
 FI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
+    int borrow = 0;
     return x;}
 
 // -----------------
@@ -600,7 +614,7 @@ class Integer {
          */
         Integer& operator <<= (int n) {
             // <your code>
-            //This doesn't work
+            // Must increase size when adding 0's
             int i = n;
             int value = 0;
             while (i > 0){
@@ -621,6 +635,7 @@ class Integer {
          */
         Integer& operator >>= (int n) {
             // <your code>
+            // Must decrease size when popping #'s
             int i = n;
             while (i > 0){
                 --_size;

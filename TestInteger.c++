@@ -73,6 +73,7 @@ TEST(IntegerFixture, shift_right_1){
     vector<int> w = {2, 2, 2, 2, 2, 2};
     shift_right_digits(v.begin(), v.begin()+1, 0, w.begin());
     vector<int> y = {1, 0, 0, 0, 0, 0};
+    
     ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
 }
 
@@ -701,8 +702,8 @@ TEST(IntegerFixture, sreq_1){
     v >>= 2;
     ostringstream w;
     w << v;
-    ASSERT_EQ("549", w.str());
-    //ASSERT_TRUE(v==u);
+    //ASSERT_EQ("549", w.str());
+    ASSERT_TRUE(v==u);
 }
 
 TEST(IntegerFixture, sreq_2){
@@ -711,8 +712,8 @@ TEST(IntegerFixture, sreq_2){
     v >>= 8;
     ostringstream w;
     w << v;
-    ASSERT_EQ("13", w.str());
-    //ASSERT_TRUE(v==u);
+    //ASSERT_EQ("13", w.str());
+    ASSERT_TRUE(v==u);
 }
 
 TEST(IntegerFixture, sreq_3){
@@ -721,8 +722,8 @@ TEST(IntegerFixture, sreq_3){
     v >>= 1;
     ostringstream w;
     w << v;
-    ASSERT_EQ("373373737", w.str());
-    //ASSERT_TRUE(v==u);
+    //ASSERT_EQ("373373737", w.str());
+    ASSERT_TRUE(v==u);
 }
 
 //TEST(IntegerFixture, sreq_4){}
