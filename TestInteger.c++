@@ -26,42 +26,42 @@ using namespace std;
 TEST(IntegerFixture, shift_left_1){
     vector<int> v = {1, 2, 3, 4, 5, 6};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_left_digits(v.begin(), v.begin()+3, 2, w.begin());
-    vector<int> y = {0, 1, 2, 3, 0, 0};
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_left_digits(v.begin(), v.begin()+3, 2, w.begin());
+    vector<int> y = {0, 0, 1, 2, 3};
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 
 }
 
 TEST(IntegerFixture, shift_left_2){
     vector<int> v = {1, 2, 3, 4, 5, 6};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_left_digits(v.begin()+1, v.begin()+4, 1, w.begin());
-    vector<int> y = {0, 0, 2, 3, 4, 0};
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_left_digits(v.begin()+1, v.begin()+4, 1, w.begin());
+    vector<int> y = {0, 2, 3, 4};
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 }
 
 TEST(IntegerFixture, shift_left_3){
     vector<int> v = {1, 2, 3, 4, 5, 6};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_left_digits(v.begin(), v.begin()+1, 0, w.begin());
-    vector<int> y = {0, 0, 0, 0, 0, 1};
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_left_digits(v.begin(), v.begin()+1, 0, w.begin());
+    vector<int> y = {1};
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 }
 
 TEST(IntegerFixture, shift_left_4){
     vector<int> v = {1, 2, 3, 4, 5, 6};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_left_digits(v.begin(), v.begin()+2, 0, w.begin());
-    vector<int> y = {0, 0, 0, 0, 1, 2};
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_left_digits(v.begin(), v.begin()+2, 0, w.begin());
+    vector<int> y = {1, 2};
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 }
 
 TEST(IntegerFixture, shift_left_5){
     vector<int> v = {1, 2, 3, 4, 5, 6};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_left_digits(v.begin(), v.begin()+1, 4, w.begin());
-    vector<int> y = {0, 1, 0, 0, 0, 0};
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_left_digits(v.begin(), v.begin()+1, 4, w.begin());
+    vector<int> y = {0, 0, 0, 0, 1};
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 }
 
 // ------------------
@@ -71,42 +71,42 @@ TEST(IntegerFixture, shift_left_5){
 TEST(IntegerFixture, shift_right_1){
     vector<int> v = {1, 0, 0, 0, 0, 0};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_right_digits(v.begin(), v.begin()+1, 0, w.begin());
-    vector<int> y = {1, 0, 0, 0, 0, 0};
-    
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_right_digits(v.begin(), v.begin()+1, 0, w.begin());
+    vector<int> y = {1};
+
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 }
 
 TEST(IntegerFixture, shift_right_2){
     vector<int> v = {1, 0, 0, 0, 0, 0};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_right_digits(v.begin(), v.begin()+1, 1, w.begin());
-    vector<int> y = {0, 1, 0, 0, 0, 0};
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_right_digits(v.begin(), v.begin()+1, 1, w.begin());
+    vector<int> y = {0};
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 }
 
 TEST(IntegerFixture, shift_right_3){
-    vector<int> v = {1, 0, 0, 0, 0, 0};
+    vector<int> v = {0, 0, 0, 1, 0, 0};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_right_digits(v.begin(), v.begin()+1, 4, w.begin());
-    vector<int> y = {0, 0, 0, 0, 1, 0};
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_right_digits(v.begin(), v.begin()+4, 3, w.begin());
+    vector<int> y = {1};
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 }
 
 TEST(IntegerFixture, shift_right_4){
     vector<int> v = {1, 0, 1, 0, 1, 0};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_right_digits(v.begin(), v.begin()+6, 1, w.begin());
-    vector<int> y = {0, 1, 0, 1, 0, 1};
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_right_digits(v.begin(), v.begin()+5, 1, w.begin());
+    vector<int> y = {0, 1, 0, 1,};
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 }
 
 TEST(IntegerFixture, shift_right_5){
-    vector<int> v = {1, 1, 1, 0, 0, 0};
+    vector<int> v = {1, 1, 1, 1, 1, 1};
     vector<int> w = {2, 2, 2, 2, 2, 2};
-    shift_right_digits(v.begin(), v.begin()+3, 3, w.begin());
-    vector<int> y = {0, 0, 0, 1, 1, 1};
-    ASSERT_TRUE(equal(w.begin(), w.end(), y.begin()));
+    vector<int>::iterator x = shift_right_digits(v.begin(), v.begin()+6, 3, w.begin());
+    vector<int> y = {1, 1, 1};
+    ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 }
 
 // ------------------
@@ -275,13 +275,13 @@ TEST(IntegerFixture, equal_1){
 
 TEST(IntegerFixture, equal_2){
     Integer<int> x = 100000;
-    Integer<int> y = 100000;
-    ASSERT_TRUE(x == y);
+    Integer<int> y = 100320;
+    ASSERT_FALSE(x == y);
 }
 
 TEST(IntegerFixture, equal_3){
-    Integer<int> v = 100;
-    Integer<int> w = 100;
+    Integer<int> v = 103;
+    Integer<int> w = 103;
     ASSERT_TRUE(v == w);
 
 }
@@ -363,6 +363,13 @@ TEST(IntegerFixture, output_5){
     w << x;
     ASSERT_EQ("400000", w.str());
 }
+TEST(IntegerFixture, output_6){
+    Integer<int> x("0020045");
+    ostringstream w;
+    w << x;
+    ASSERT_EQ("20045", w.str());
+}
+
 
 
 // ------------------
@@ -391,36 +398,36 @@ TEST(IntegerFixture, valid_3){
 
 TEST(IntegerFixture, constr_1){
     Integer<int> x = 12345600;
-    int i = 0;
+    int i = x.getSize();
     ostringstream w;
     auto y = x.getContainer();
-    while (i < x.getSize()){
-        w << y.at(i);
-        ++i;
+    while (i > 0 ){
+        w << y.at(i-1);
+        --i;
     }
     ASSERT_EQ("12345600", w.str());
 }
 
 TEST(IntegerFixture, constr_2){
     Integer<int> x = 43589273;
-    int i = 0;
+    int i = x.getSize();
     ostringstream w;
     auto y = x.getContainer();
-    while (i < x.getSize()){
-        w << y.at(i);
-        ++i;
+    while (i > 0 ){
+        w << y.at(i-1);
+        --i;
     }
     ASSERT_EQ("43589273", w.str());
 }
 
 TEST(IntegerFixture, constr_3){
     Integer<int> x = 0;
-    int i = 0;
+    int i = x.getSize();
     ostringstream w;
     auto y = x.getContainer();
-    while (i < x.getSize()){
-        w << y.at(i);
-        ++i;
+    while (i > 0 ){
+        w << y.at(i-1);
+        --i;
     }
     ASSERT_EQ("0", w.str());
 }
@@ -435,36 +442,36 @@ TEST(IntegerFixture, constr_3){
 
 TEST(IntegerFixture, exconstr_1){
     Integer<int> x("12345600");
-    int i = 0;
+    int i = x.getSize();
     ostringstream w;
     auto y = x.getContainer();
-    while (i < x.getSize()){
-        w << y.at(i);
-        ++i;
+    while (i > 0 ){
+        w << y.at(i-1);
+        --i;
     }
     ASSERT_EQ("12345600", w.str());
 }
 
 TEST(IntegerFixture, exconstr_2){
     Integer<int> x("48938485");
-    int i = 0;
+    int i = x.getSize();
     ostringstream w;
     auto y = x.getContainer();
-    while (i < x.getSize()){
-        w << y.at(i);
-        ++i;
+    while (i > 0 ){
+        w << y.at(i-1);
+        --i;
     }
     ASSERT_EQ("48938485", w.str());
 }
 
 TEST(IntegerFixture, exconstr_3){
     Integer<int> x("0");
-    int i = 0;
+    int i = x.getSize();
     ostringstream w;
     auto y = x.getContainer();
-    while (i < x.getSize()){
-        w << y.at(i);
-        ++i;
+    while (i > 0 ){
+        w << y.at(i-1);
+        --i;
     }
     ASSERT_EQ("0", w.str());
 }
@@ -702,8 +709,8 @@ TEST(IntegerFixture, sreq_1){
     v >>= 2;
     ostringstream w;
     w << v;
-    //ASSERT_EQ("549", w.str());
-    ASSERT_TRUE(v==u);
+    ASSERT_EQ("549", w.str());
+    //ASSERT_TRUE(v==u);
 }
 
 TEST(IntegerFixture, sreq_2){
@@ -712,8 +719,8 @@ TEST(IntegerFixture, sreq_2){
     v >>= 8;
     ostringstream w;
     w << v;
-    //ASSERT_EQ("13", w.str());
-    ASSERT_TRUE(v==u);
+    ASSERT_EQ("13", w.str());
+    //ASSERT_TRUE(v==u);
 }
 
 TEST(IntegerFixture, sreq_3){
@@ -722,8 +729,8 @@ TEST(IntegerFixture, sreq_3){
     v >>= 1;
     ostringstream w;
     w << v;
-    //ASSERT_EQ("373373737", w.str());
-    ASSERT_TRUE(v==u);
+    ASSERT_EQ("373373737", w.str());
+    //ASSERT_TRUE(v==u);
 }
 
 //TEST(IntegerFixture, sreq_4){}
@@ -740,8 +747,8 @@ TEST(IntegerFixture, abs_1){
 }
 
 TEST(IntegerFixture, abs_2){
-    Integer<int> x = 12323421;
-    ASSERT_EQ(abs(x), 12323421);
+    Integer<int> x = 1232421;
+    ASSERT_EQ(abs(x), 1232421);
 }
 
 TEST(IntegerFixture, abs_3){

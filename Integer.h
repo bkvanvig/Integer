@@ -18,6 +18,9 @@
 #include <vector>    // vector
 
 using namespace std;
+
+
+
 // -----------------
 // shift_left_digits
 // -----------------
@@ -30,21 +33,25 @@ using namespace std;
  * the sequences are of decimal digits
  * output the shift left of the input sequence into the output sequence
  * ([b, e) << n) => x
- * example: 123456,(b, b+3, 2, x)-> 012300
  */
 template <typename II, typename OI>
 OI shift_left_digits (II b, II e, int n, OI x) {
     // <your code>
-
+    // shift bits
+    while(n>0){
+        *x = 0;
+        //cout << 0;
+        ++x;
+        --n;
+    }
+    // copy bits
     while (b != e){
         *x = *b;
+        //cout << *b;
         ++b;
         ++x;
     }
-    while(n>0){
-        *x = 0;
-        --n;
-    }
+    //cout << endl;
     return x;}
 
 // ------------------
@@ -63,6 +70,19 @@ OI shift_left_digits (II b, II e, int n, OI x) {
 template <typename II, typename OI>
 OI shift_right_digits (II b, II e, int n, OI x) {
     // <your code>
+    while (b != e){
+        if (n > 0){
+            *x = 0;
+            //cout<< 0;
+            --n;
+        }
+        else{
+            *x = *b;
+            //cout << *b;
+            ++x;
+        }
+        ++b;
+    }
     return x;}
 
 // -----------
@@ -86,6 +106,7 @@ FI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     int carry = 0;
 
 
+
     return x;}
 
 // ------------
@@ -107,6 +128,7 @@ template <typename II1, typename II2, typename FI>
 FI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
     int borrow = 0;
+
     return x;}
 
 // -----------------
@@ -127,6 +149,7 @@ FI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
 template <typename II1, typename II2, typename FI>
 FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
+
     return x;}
 
 // --------------
@@ -147,6 +170,7 @@ FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
 template <typename II1, typename II2, typename FI>
 FI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
+
     return x;}
 
 // -------
@@ -339,23 +363,23 @@ class Integer {
     friend std::ostream& operator << (std::ostream& lhs, const Integer& rhs) {
         // <your code>
             //Boolean to determine if a 0 is significant
-            bool sigzero = false;
+            bool sigzero = true;
             bool empty = true;
             int size = rhs._size;
-            int i = 0;
+            int i = size;
             if (rhs._neg)
                 lhs << "-";
-            while (i < size){
-                int value = rhs._x.at(i);
+            while (i > 0){
+                int value = rhs._x.at(i-1);
                 if (value!=0 && !sigzero)
                     sigzero=true;
                 if (value == 0 && !sigzero){
-                    ++i;
+                    --i;
                     continue;
                 }
                 empty = false;
                 lhs << value;
-                ++i;
+                --i;
             }
         if (empty)
             lhs << "0";
@@ -392,7 +416,6 @@ class Integer {
         C _x; // the backing container
 
         bool _neg;// sign of value, true = negative
-
         int _size;
     private:
         // -----
@@ -418,6 +441,10 @@ class Integer {
             return _size;
         }
 
+        bool getNeg(){
+            return _neg;
+        }
+
 
         // ------------
         // constructors
@@ -432,7 +459,7 @@ class Integer {
             // <your code>
             
             _size = 0;
-            int rev = 0;
+            //int rev = 0;
             _neg = false;
 
             if (value == 0){
@@ -447,19 +474,18 @@ class Integer {
                 value *= -1;
             }
 
+            // while (value > 0){
+            //     int mod = value % 10;
+            //     rev *= 10;
+            //     rev +=mod;
+            //     value /= 10;
+            //     ++_size;
+            // }
             while (value > 0){
                 int mod = value % 10;
-                rev *= 10;
-                rev +=mod;
+                _x.push_back(mod);
                 value /= 10;
                 ++_size;
-            }
-            int i = _size;
-            while (i > 0){
-                int mod = rev % 10;
-                _x.push_back(mod);
-                rev /= 10;
-                --i;
             }
             
             assert(valid());}
@@ -478,11 +504,18 @@ class Integer {
             }
             _neg = false;
             _size = 0;
+            --e;
             while (b!=e){
+                if (*b == '0'){
+                    ++b;
+                    continue;
+                }
                 ++_size;
-                _x.push_back(*b-'0');
-                ++b;
+                _x.push_back(*e-'0');
+                --e;
             }
+            _x.push_back(*e-'0');
+            ++_size;
             if (!valid())
                 throw std::invalid_argument("Integer::Integer()");}
 
@@ -616,10 +649,10 @@ class Integer {
             // <your code>
             // Must increase size when adding 0's
             int i = n;
-            int value = 0;
+            auto it = _x.begin();
             while (i > 0){
                 ++_size;
-                _x.push_back(0);
+                _x.insert(it, 0);
                 --i;
             }
             //cout << n;
@@ -637,9 +670,10 @@ class Integer {
             // <your code>
             // Must decrease size when popping #'s
             int i = n;
+            auto it = _x.begin();
             while (i > 0){
                 --_size;
-                _x.pop_back();
+                _x.erase(it);
                 --i;
             }
             //cout << n;
