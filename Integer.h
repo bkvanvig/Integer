@@ -104,15 +104,73 @@ template <typename II1, typename II2, typename FI>
 FI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
     int carry = 0;
+    int value = 0;
+    /* This needs to accomodate numbers of varying sizes
+     * so if [b1, e1) is 3 digits, and [b2, e2) is 8
+     * we need to keep assigning the values to x after
+     * one of the ends (e1 or e2) is reached
+     */
+    while (b1 != e1 || b2 != e2){
+        // if num1 has ended
+        if (b1 == e1 && b2 == e2)
+            break;
+        if (b1 == e1){
+            value = carry + *b2;
+            carry = 0;
+            ++b2;
+        }
+        // if num2 is ended
+        else if (b2 == e2){
+            value = carry + *b1;
+            carry = 0;
+            ++b1;
+        }
+        // still in middle of both
+        else{
+            value = *b1 + *b2 + carry;
+            ++b1;
+            ++b2;
+            carry = 0;
+        }
+        
+        if (value > 9){
+            carry = value / 10;
+            value %= 10;
+        }
+        
+        *x = value;
+        ++x;
+        //cout << "x = " << value << endl;
+        //cout << "carry = " << carry << endl;
+    }
 
-
+    if (carry != 0){
+        *x = carry;
+        ++x;
+    }
+    //cout << "end" << endl;
 
     return x;}
 
 // ------------
 // minus_digits
 // ------------
-
+template <typename II>
+void borrowhelper (II b, II e){
+    ++b;
+    while (b!=e){
+        if (*b == 0){
+            *b = 9;
+            ++b;
+        }
+        else
+        {
+            --*b;
+            break;
+        }
+    }
+    return;
+}
 /**
  * @param b  an iterator to the beginning of an input  sequence (inclusive)
  * @param e  an iterator to the end       of an input  sequence (exclusive)
@@ -127,9 +185,43 @@ FI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
 template <typename II1, typename II2, typename FI>
 FI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
-    int borrow = 0;
+    int value;
+
+    while (b1 != e1 || b2 != e2){
+        // if num1 has ended
+        if (b1 == e1 && b2 == e2)
+            break;
+        if (b1 == e1){
+            value = *b2;
+            ++b2;
+        }
+        // if num2 is ended
+        else if (b2 == e2){
+            value = *b1;
+            ++b1;
+        }
+        // still in middle of both
+        else{
+            // need to borrow
+            if (*b1 < *b2){
+                auto tmp = b1;
+                borrowhelper(tmp, e1);
+                *b1 += 10;
+            }
+            value = *b1 - *b2;
+            ++b1;
+            ++b2;
+        }
+        
+        *x = value;
+        ++x;
+        //cout << "x = " << value << endl;
+        //cout << "carry = " << carry << endl;
+    }
 
     return x;}
+    
+
 
 // -----------------
 // multiplies_digits
