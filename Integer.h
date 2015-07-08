@@ -155,22 +155,6 @@ FI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
 // ------------
 // minus_digits
 // ------------
-template <typename II>
-void borrowhelper (II b, II e){
-    ++b;
-    while (b!=e){
-        if (*b == 0){
-            *b = 9;
-            ++b;
-        }
-        else
-        {
-            --*b;
-            break;
-        }
-    }
-    return;
-}
 /**
  * @param b  an iterator to the beginning of an input  sequence (inclusive)
  * @param e  an iterator to the end       of an input  sequence (exclusive)
@@ -186,29 +170,36 @@ template <typename II1, typename II2, typename FI>
 FI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
     int value;
+    bool borrow = false;
 
     while (b1 != e1 || b2 != e2){
         // if num1 has ended
+        value = 0;
+
+        if (borrow){
+            //cout << "borrow -1 ";
+            value = -1;
+            borrow = false;
+        }
         if (b1 == e1 && b2 == e2)
             break;
         if (b1 == e1){
-            value = *b2;
+            value += *b2;
             ++b2;
         }
         // if num2 is ended
         else if (b2 == e2){
-            value = *b1;
+            value += *b1;
             ++b1;
         }
         // still in middle of both
         else{
             // need to borrow
             if (*b1 < *b2){
-                auto tmp = b1;
-                borrowhelper(tmp, e1);
-                *b1 += 10;
+                borrow = true;
+                value += 10;
             }
-            value = *b1 - *b2;
+            value += *b1 - *b2;
             ++b1;
             ++b2;
         }
@@ -220,12 +211,54 @@ FI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     }
 
     return x;}
-    
+
 
 
 // -----------------
 // multiplies_digits
 // -----------------
+template < typename II1, typename II2, typename FI>
+FI multiplication (II1 b1, II1 e1, II2 b2, II2 e2, FI x){
+    int carry = 0;
+    int value = 0;
+
+    while ( b1 != e1){
+        //cout << "carry " << carry << endl;
+        int tmp1 = *b1;
+        int tmp2 = *b2;
+        value = (tmp1*tmp2) + carry;
+        //cout << " " << tmp1;
+        //cout << " " << tmp2;
+        if (value > 9){
+            //cout << " " << value;
+            carry = value / 10;
+            value = value %10;
+            
+        }
+        //cout << "carry " << carry << endl;
+        *x = value;
+        ++x; 
+        ++b1;
+    }
+    if (carry != 0){
+        *x = carry;
+        ++x;
+    }
+    return x;
+}
+
+
+
+template <typename II1, typename II2>
+int findm (II1 b1, II1 e1, II2 b2, II2 e2){
+    int len = 0;
+    while (b1 != e1 && b2 != e2){
+        ++len;
+        ++b1; 
+        ++b2;
+    }
+    return len-1;
+}
 
 /**
  * @param b  an iterator to the beginning of an input  sequence (inclusive)
@@ -242,7 +275,110 @@ template <typename II1, typename II2, typename FI>
 FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
 
+    std::vector<int> num1;
+    std::vector<int> num2;
+    std::vector<int> result;
+    vector<int>::iterator y = result.begin();
+    while (b1 != e1){ 
+        num1.push_back(*b1++);
+    }
+    while (b2 != e2){ 
+        num2.push_back(*b2++);}
+    result.resize(num1.size() + num2.size());
+
+    /* This assumes the natural form of the bottom number being shorter or equal to the top number
+     * In this case, the top number is num1, the bottom number is num2
+     *
+     */
+     int carry = 0;
+    for (int i = 0; i < num2.size(); ++i){
+        
+        for (int j = 0; j < num1.size(); ++j){
+            //cout << "i: " << i << endl;
+            //cout << "j: " << j << endl;
+            int tmp1 = num1.at(j);
+            int tmp2 = num2.at(i);
+            //cout << "num1 " << tmp1 << endl;
+            //cout << "num2 " << tmp2 << endl;
+            //cout << "carry " << carry << endl;
+            result[j+i] += (tmp1*tmp2) + carry;
+
+            if (result[j+i] > 9){
+                carry = result[j+i] / 10;
+                result[j+i] = result[j+i] %10;
+            }
+            else
+                carry = 0;
+        }
+        if (carry !=0)
+            result[num1.size()+i] += carry;
+            carry = 0;
+        }
+    int k = 0;
+    while (k < result.size()){
+        //cout << result[k] << " ";
+        *x = result[k];
+        ++x;
+        ++k;
+    }
+    
+    return x;
+
+
+    //implementation of karatsuba algorithm
+    /*
+     * z0 = x0*y0
+     * z1 = (x1+x0)*(y1+y0) - z2 - z0
+     * z2 = x1*y1
+     
+    // if either number is 0, return 0
+    if ((*b2 ==0 && b2+1 == e2) || (*b1 ==0 && b1+1 == e1)){
+        *x = 0;
+        return ++x;
+    }
+
+    // if b2 is 1, return b1 as x
+    if (*b2 ==1 && b2+1 == e2){
+        while (b1 != e1){
+            *x = *b1;
+            ++x;
+            ++b1;
+        }
+        return x;
+    }
+
+    // if b1 is 1, return b2 as x
+    if (*b1 ==1 && b1+1 == e1){
+        while (b2 != e2){
+            *x = *b2;
+            ++x;
+            ++b2;
+        }
+        return x;
+    }
+    // If one of the numbers is only 1 digit, just slow multiply
+    if (b1 == e1+1 || b2 == e2+1){
+        x = multiplication(b1, e1, b2, e2, x);
+        return x;
+    }
+
+    // otherwise, do karatsuba
+    int b = 10;
+    //This is shortest length of 2 nums
+    int m = findm(b1, e1, b2, e2);
+
+    //split accordingly
+    
+    FI z0 = multiplication(b1, b1+m, b2, b2+m, z0);
+    FI z2 = multiplication(b1+m, e1, b2+m, e2, z2);
+
+
+
+    //multiply */
+
+
     return x;}
+
 
 // --------------
 // divides_digits
@@ -679,7 +815,33 @@ class Integer {
          */
         Integer& operator += (const Integer& rhs) {
             // <your code>
-           // int carry = 0;
+            
+            auto b1 = _x.begin();
+            auto b2 = rhs._x.begin();
+            auto e1 = _x.end();
+            auto e2 = rhs._x.end();
+            auto x = _x.begin();
+           if (_neg && !rhs._neg){
+                if (*this < rhs)
+                    _neg = true;
+                x = minus_digits(b2, e2, b1, e1, x);
+                return *this;
+
+           }
+           if (!_neg && rhs._neg){
+                if (*this < rhs)
+                    _neg = true;
+                x = minus_digits(b1, e1, b2, e2, x);
+                return *this;
+           }
+           if (_neg && rhs._neg){
+                _neg = true;
+                x = plus_digits(b1, e1, b2, e2, x);
+                return *this;
+           }
+           x = plus_digits(b1, e1, b2, e2, x);
+            
+            assert(valid());
 
             return *this;}
 
@@ -692,7 +854,29 @@ class Integer {
          */
         Integer& operator -= (const Integer& rhs) {
             // <your code>
-           // int borrow = 0;
+            auto b1 = _x.begin();
+            auto b2 = rhs._x.begin();
+            auto e1 = _x.end();
+            auto e2 = rhs._x.end();
+            auto x = _x.begin();
+            if (_neg && !rhs._neg)
+            {
+                _neg = true;
+                x = plus_digits(b1, e1, b2, e2, x);
+                return *this;
+            }
+            if (!_neg && rhs._neg){
+                _neg = false;
+                x = plus_digits(b1, e1, b2, e2, x);
+                return *this;
+            }
+            if (_neg && rhs._neg){
+                _neg = true;
+                x = plus_digits(b1, e1, b2, e2, x);
+                return *this;
+            }
+
+            x = minus_digits(b1, e1, b2, e2, x);
             return *this;}
 
         // -----------
@@ -704,6 +888,7 @@ class Integer {
          */
         Integer& operator *= (const Integer& rhs) {
             // <your code>
+
             return *this;}
 
         // -----------
@@ -728,6 +913,7 @@ class Integer {
          */
         Integer& operator %= (const Integer& rhs) {
             // <your code>
+
             return *this;}
 
         // ------------
