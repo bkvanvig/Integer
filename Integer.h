@@ -274,7 +274,33 @@ int findm (II1 b1, II1 e1, II2 b2, II2 e2){
 template <typename II1, typename II2, typename FI>
 FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
+    // if either number is 0, return 0
+    if ((*b2 ==0 && b2+1 == e2) || (*b1 ==0 && b1+1 == e1)){
+        *x = 0;
+        return ++x;
+    }
 
+    // if b2 is 1, return b1 as x
+    if (*b2 ==1 && b2+1 == e2){
+        while (b1 != e1){
+            *x = *b1;
+            ++x;
+            ++b1;
+        }
+        return x;
+    }
+
+    // if b1 is 1, return b2 as x
+    if (*b1 ==1 && b1+1 == e1){
+        while (b2 != e2){
+            *x = *b2;
+            ++x;
+            ++b2;
+        }
+        return x;
+    }
+
+    
     std::vector<int> num1;
     std::vector<int> num2;
     std::vector<int> result;

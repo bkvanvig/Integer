@@ -288,9 +288,23 @@ TEST(IntegerFixture, multiplies_3){
     //ASSERT_EQ(x, y);
 }
 
-//TEST(IntegerFixture, multiplies_4){}
+TEST(IntegerFixture, multiplies_4){
+    vector<int> v = {1, 2, 3, 5, 0, 0};
+    vector<int> w = {0, 0};
+    vector<int> x = {0, 0, 0, 0, 0, 0};
+    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.begin()+4, w.begin(), w.begin()+1, x.begin());
+    vector<int> y = {0, 0, 0, 0, 0};
+    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+}
 
-//TEST(IntegerFixture, multiplies_5){}
+TEST(IntegerFixture, multiplies_5){
+    vector<int> v = {1, 2, 3, 5, 0, 0};
+    vector<int> w = {1, 0};
+    vector<int> x = {0, 0, 0, 0, 0, 0};
+    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.begin()+4, w.begin(), w.begin()+1, x.begin());
+    vector<int> y = {1, 2, 3, 5, 0};
+    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+}
 
 // ------------------
 // divides_digits
