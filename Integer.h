@@ -221,53 +221,6 @@ FI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     return x;}
 
 
-
-// -----------------
-// multiplies_digits
-// -----------------
-template < typename II1, typename II2, typename FI>
-FI multiplication (II1 b1, II1 e1, II2 b2, II2 e2, FI x){
-    int carry = 0;
-    int value = 0;
-
-    while ( b1 != e1){
-        //cout << "carry " << carry << endl;
-        int tmp1 = *b1;
-        int tmp2 = *b2;
-        value = (tmp1*tmp2) + carry;
-        //cout << " " << tmp1;
-        //cout << " " << tmp2;
-        if (value > 9){
-            //cout << " " << value;
-            carry = value / 10;
-            value = value %10;
-            
-        }
-        //cout << "carry " << carry << endl;
-        *x = value;
-        ++x; 
-        ++b1;
-    }
-    if (carry != 0){
-        *x = carry;
-        ++x;
-    }
-    return x;
-}
-
-
-
-template <typename II1, typename II2>
-int findm (II1 b1, II1 e1, II2 b2, II2 e2){
-    int len = 0;
-    while (b1 != e1 && b2 != e2){
-        ++len;
-        ++b1; 
-        ++b2;
-    }
-    return len-1;
-}
-
 /**
  * @param b  an iterator to the beginning of an input  sequence (inclusive)
  * @param e  an iterator to the end       of an input  sequence (exclusive)

@@ -209,60 +209,6 @@ TEST(IntegerFixture, minus_3){
 //TEST(IntegerFixture, minus_5){}
 
 
-// ----------------
-// findm
-// ----------------
-TEST(IntegerFixture, findm_1){
-    vector<int> v = {3, 2, 1};
-    vector<int> w = {3, 4};
-    int i = findm(v.begin(), v.end(), w.begin(), w.end());
-    ASSERT_EQ(i, 1);
-}
-TEST(IntegerFixture, findb_2){
-    vector<int> v = {3, 2, 1};
-    vector<int> w = {3, 4, 3, 4, 5};
-    int i = findm(v.begin(), v.end(), w.begin(), w.end());
-    ASSERT_EQ(i, 2);
-}
-TEST(IntegerFixture, findb_3){
-    vector<int> v = {3, 2, 1, 0, 2, 3};
-    vector<int> w = {3, 4, 3, 4, 3, 3};
-    int i = findm(v.begin(), v.end(), w.begin(), w.end());
-    ASSERT_EQ(i, 5);
-}
-
-
-// --------------
-// multiplication
-// --------------
-TEST(IntegerFixture, mult_1){
-    vector<int> v = {3, 0, 0, 0, 0, 0};
-    vector<int> w = {2};
-    vector<int> x = {0, 0, 0, 0, 0, 0};
-    vector<int>::iterator x1 = multiplication(v.begin(), v.begin()+1, w.begin(), w.end(), x.begin());
-    vector<int> y = {6};
-    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    //ASSERT_EQ(x, y);
-}
-TEST(IntegerFixture, mult_2){
-    vector<int> v = {3, 0, 3, 0, 0, 0};
-    vector<int> w = {2};
-    vector<int> x = {0, 0, 0, 0, 0, 0};
-    vector<int>::iterator x1 = multiplication(v.begin(), v.begin()+3, w.begin(), w.end(), x.begin());
-    vector<int> y = {6, 0, 6};
-    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    //ASSERT_EQ(x, y);
-}
-TEST(IntegerFixture, mult_3){
-    vector<int> v = {1, 2, 3, 5, 0, 0};
-    vector<int> w = {5};
-    vector<int> x = {0, 0, 0, 0, 0, 0};
-    vector<int>::iterator x1 = multiplication(v.begin(), v.begin()+4, w.begin(), w.end(), x.begin());
-    vector<int> y = {5, 0, 6, 6, 2};
-    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    //ASSERT_EQ(x, y);
-}
-
 // ------------------
 // multiplies_digits
 // ------------------
