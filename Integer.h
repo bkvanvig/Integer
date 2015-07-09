@@ -105,22 +105,16 @@ FI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
     int carry = 0;
     int value = 0;
+
     /* This needs to accomodate numbers of varying sizes
      * so if [b1, e1) is 3 digits, and [b2, e2) is 8
      * we need to keep assigning the values to x after
      * one of the ends (e1 or e2) is reached
      */
-    while (b1 != e1 || b2 != e2){
-        // if num1 has ended
-        if (b1 == e1 && b2 == e2)
-            break;
-        if (b1 == e1){
-            value = carry + *b2;
-            carry = 0;
-            ++b2;
-        }
+    while (b1 != e1){
+        //cout << "next digit b1 " << *b1 << " b2 " << *b2 << endl;
         // if num2 is ended
-        else if (b2 == e2){
+        if (b2 == e2){
             value = carry + *b1;
             carry = 0;
             ++b1;
@@ -137,11 +131,23 @@ FI plus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
             carry = value / 10;
             value %= 10;
         }
-        
+        //cout << "value written " << value << endl;
         *x = value;
         ++x;
         //cout << "x = " << value << endl;
         //cout << "carry = " << carry << endl;
+    }
+    while (b2 != e2){
+        value = carry + *b2;
+        carry = 0;
+        ++b2;
+        if (value > 9){
+            carry = value / 10;
+            value %= 10;
+        }
+        //cout << "value written " << value << endl;
+        *x = value;
+        ++x;
     }
 
     if (carry != 0){
@@ -171,6 +177,8 @@ FI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
     int value;
     bool borrow = false;
+
+
 
     while (b1 != e1 || b2 != e2){
         // if num1 has ended
@@ -300,7 +308,7 @@ FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
         return x;
     }
 
-    
+    //otherwise, do long multiplication
     std::vector<int> num1;
     std::vector<int> num2;
     std::vector<int> result;
@@ -347,61 +355,6 @@ FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
         ++x;
         ++k;
     }
-    
-    return x;
-
-
-    //implementation of karatsuba algorithm
-    /*
-     * z0 = x0*y0
-     * z1 = (x1+x0)*(y1+y0) - z2 - z0
-     * z2 = x1*y1
-     
-    // if either number is 0, return 0
-    if ((*b2 ==0 && b2+1 == e2) || (*b1 ==0 && b1+1 == e1)){
-        *x = 0;
-        return ++x;
-    }
-
-    // if b2 is 1, return b1 as x
-    if (*b2 ==1 && b2+1 == e2){
-        while (b1 != e1){
-            *x = *b1;
-            ++x;
-            ++b1;
-        }
-        return x;
-    }
-
-    // if b1 is 1, return b2 as x
-    if (*b1 ==1 && b1+1 == e1){
-        while (b2 != e2){
-            *x = *b2;
-            ++x;
-            ++b2;
-        }
-        return x;
-    }
-    // If one of the numbers is only 1 digit, just slow multiply
-    if (b1 == e1+1 || b2 == e2+1){
-        x = multiplication(b1, e1, b2, e2, x);
-        return x;
-    }
-
-    // otherwise, do karatsuba
-    int b = 10;
-    //This is shortest length of 2 nums
-    int m = findm(b1, e1, b2, e2);
-
-    //split accordingly
-    
-    FI z0 = multiplication(b1, b1+m, b2, b2+m, z0);
-    FI z2 = multiplication(b1+m, e1, b2+m, e2, z2);
-
-
-
-    //multiply */
-
 
     return x;}
 
@@ -425,7 +378,70 @@ template <typename II1, typename II2, typename FI>
 FI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     // <your code>
 
+    /* Divide num1 by num2
+     * This algorithm does NOT assume num1 is bigger than num2
+     * OR that either is non-zero
+     */
+
+    std::vector<int> num1;
+    std::vector<int> num2;
+    std::vector<int> result;
+    vector<int>::iterator y = result.begin();
+    while (b1 != e1){ 
+        num1.push_back(*b1++);
+    }
+    while (b2 != e2){ 
+        num2.push_back(*b2++);}
+    result.resize(num1.size() + num2.size());
+
+     // If num1 < num2 then return 0 as answer
+    if (num1.size() <= num2.size() && num1.back() < num2.back()){
+        *x = 0; 
+        ++x;
+        return x;
+    }
+
+    // if num2 = 0 -> error
+    if (num2.size() == 1 && num2.at(0) == 0){
+        throw invalid_argument("Divide by zero");
+    }
+
+    // if num2 = 1 -> answer = num1
+    if (num2.size() == 1 && num2.at(0) == 1){
+        int i = 0;
+        for (int i = 0; i< num1.size(); ++i){
+            *x = num1[i];
+            ++x;
+        }
+        return x;
+    }
+    // else regular divide
+
+
+
     return x;}
+
+// --------
+// <digits
+// --------
+template <typename II1, typename II2>
+bool lt_digits(II1 b1, II1 e1, II2 b2, II2 e2){
+    std::vector<int> num1;
+    std::vector<int> num2;
+
+    while (b1 != e1){ 
+        num1.push_back(*b1++);
+    }
+    while (b2 != e2){ 
+        num2.push_back(*b2++);}
+    if (num1.size() != num2.size())
+        return false;
+    for (int i = 0; i < num1.size(); ++i){
+        if (num1.at(i)!= num2.at(i))
+            return false;
+    }
+    return true;
+}
 
 // -------
 // Integer
@@ -442,10 +458,14 @@ class Integer {
      */
     friend bool operator == (const Integer& lhs, const Integer& rhs) {
         // <your code>
-        if (lhs._x != rhs._x)
+        if (lhs._size != rhs._size)
             return false;
         if (lhs._neg != rhs._neg)
             return false;
+        for (int i = 0; i < lhs._size; ++i){
+            if (lhs._x.at(i) != rhs._x.at(i))
+                return false;
+        }
         return true;}
 
     // -----------
@@ -699,6 +719,34 @@ class Integer {
             return _neg;
         }
 
+        int trim(){
+            bool sigzero = false;
+            auto sz = _x.size();
+            //cout << "size " << _x.size() << endl;
+            int result = 0;
+            while (sz > 0){
+                //cout << "_x[sz] " << _x.at(sz-1) << endl;
+                if (_x.at(sz-1) != 0 && !sigzero){
+                    sigzero = true;
+                }
+                if (!sigzero && _x.at(sz-1) == 0){
+                    typename C::iterator it = _x.begin()+sz-1;
+                    _x.erase (it);
+                    --_size;
+                    --sz;
+                    continue;
+                }
+
+                // If reached, _x[sz] is either an important 0, or middle nonzero
+                ++result;
+                --sz;
+            }
+            if (result == 0)
+                result = 1;
+            cout << result << endl;
+            return result;
+        }
+
 
         // ------------
         // constructors
@@ -726,19 +774,14 @@ class Integer {
             if (value < 0){
                 _neg = true;
                 value *= -1;
+                //cout << "negative " << value << endl;
             }
-
-            // while (value > 0){
-            //     int mod = value % 10;
-            //     rev *= 10;
-            //     rev +=mod;
-            //     value /= 10;
-            //     ++_size;
-            // }
+            //cout << "value " << value << endl;
             while (value > 0){
                 int mod = value % 10;
+                //cout << "mod " << mod << endl;
                 _x.push_back(mod);
-                value /= 10;
+                value = value/10;
                 ++_size;
             }
             
@@ -842,32 +885,58 @@ class Integer {
         Integer& operator += (const Integer& rhs) {
             // <your code>
             
+            //cout << *b1 << endl;
+            //_x.resize(_size + rhs._size);
+            int max = _size > rhs._size ? _size+1 : rhs._size+1;
+            while (_size < max){
+                _x.push_back(0);
+                ++_size;
+            }
             auto b1 = _x.begin();
             auto b2 = rhs._x.begin();
             auto e1 = _x.end();
             auto e2 = rhs._x.end();
             auto x = _x.begin();
+
+            if (!_neg && !rhs._neg){
+                cout << *b1 << endl;
+                x = plus_digits(b1, e1, b2, e2, x);
+            }
+            if (_neg && rhs._neg){
+                _neg = true;
+                x = plus_digits(b1, e1, b2, e2, x);
+            }
+            //THIS IS PROBLEMATIC
+
+            // if lhs is bigger than right hand side, want to say lhs-rhs & change sign to neg
+            // if rhs is bigger than lhs, want to say rhs-lhs & change sign to pos
            if (_neg && !rhs._neg){
-                if (*this < rhs)
+                
+                if (lt_digits(b1, e1, b2, e2)){
+                    x = minus_digits(b1, e1, b2, e2, x);
                     _neg = true;
-                x = minus_digits(b2, e2, b1, e1, x);
-                return *this;
+                }
+                else{
+                    x = minus_digits(b2, e2, b1, e1, x);
+                    _neg = false;
+                }
 
            }
            if (!_neg && rhs._neg){
-                if (*this < rhs)
+                if (lt_digits(b1, e1, b2, e2)){
+                    x = minus_digits(b1, e1, b2, e2, x);
+                    _neg = false;
+                }
+                else{
+                    x = minus_digits(b2, e2, b1, e1, x);
                     _neg = true;
-                x = minus_digits(b1, e1, b2, e2, x);
-                return *this;
+                }
            }
-           if (_neg && rhs._neg){
-                _neg = true;
-                x = plus_digits(b1, e1, b2, e2, x);
-                return *this;
-           }
-           x = plus_digits(b1, e1, b2, e2, x);
+           
+
             
-            assert(valid());
+            _size = trim();
+            //assert(valid());
 
             return *this;}
 
@@ -880,29 +949,68 @@ class Integer {
          */
         Integer& operator -= (const Integer& rhs) {
             // <your code>
+
             auto b1 = _x.begin();
             auto b2 = rhs._x.begin();
             auto e1 = _x.end();
             auto e2 = rhs._x.end();
             auto x = _x.begin();
+
+            if (*this == rhs){
+                x = minus_digits(b1, e1, b2, e2, x);
+                _size = 1;
+                _neg = false;
+                return *this;
+            }
+            // If -num1 - +num2
+            // Add together, change sign to negative
             if (_neg && !rhs._neg)
             {
                 _neg = true;
                 x = plus_digits(b1, e1, b2, e2, x);
-                return *this;
-            }
-            if (!_neg && rhs._neg){
-                _neg = false;
-                x = plus_digits(b1, e1, b2, e2, x);
-                return *this;
-            }
-            if (_neg && rhs._neg){
-                _neg = true;
-                x = plus_digits(b1, e1, b2, e2, x);
+                _size = trim();
                 return *this;
             }
 
-            x = minus_digits(b1, e1, b2, e2, x);
+            // if +num1 - -num2
+            // add together, sign is postive
+            if (!_neg && rhs._neg){
+                _neg = false;
+                x = plus_digits(b1, e1, b2, e2, x);
+                _size = trim();
+                return *this;
+            }
+
+            // if -num1 - -num2
+            // calculate num2-num1
+            // sign depends on their magnitude
+            if (_neg && rhs._neg){
+                //if num1 < num2, sign is positive
+                if (lt_digits(b1, e1, b2, e2)){
+                    x = minus_digits(b2, e2, b1, e1, x);
+                    _neg = false;
+                }
+                else{
+                    x = minus_digits(b1, e1, b2, e2, x);
+                    _neg = true;
+                }
+                _size = trim();
+                return *this;
+
+            }
+            
+            // if +num1 - +num2 
+            // if num1 < num2, calculate num2 - num1 sign is negative
+            // if num2 < num1, calculate num1 - num2 sign is positive
+            if (lt_digits(b1, e1, b2, e2)){
+                x = minus_digits(b2, e2, b1, e1, x);
+                _neg = true;
+            }
+            else{
+                x = minus_digits(b1, e1, b2, e2, x);
+                _neg = false;
+            }
+            _size = trim();
             return *this;}
 
         // -----------
@@ -914,7 +1022,27 @@ class Integer {
          */
         Integer& operator *= (const Integer& rhs) {
             // <your code>
+            
+            //_x.resize(_size + rhs._size);
+            int i = _size +rhs._size;
+            while (_size < i){
+                _x.push_back(0);
+                ++_size;
+            }
+            auto b1 = _x.begin();
+            auto b2 = rhs._x.begin();
+            auto e1 = _x.end();
+            auto e2 = rhs._x.end();
+            auto x = _x.begin();
+            x = multiplies_digits(b1, e1, b2, e2, x);
+            if (_neg && !rhs._neg)
+                _neg = true;
+            else if (!_neg && rhs._neg)
+                _neg = true;
+            else
+                _neg = false;
 
+            _size = trim();
             return *this;}
 
         // -----------
@@ -1007,6 +1135,7 @@ class Integer {
          */
         Integer& pow (int e) {
             // <your code>
+            //while (e > 0){}
             return *this;}};
 
 #endif // Integer_h
