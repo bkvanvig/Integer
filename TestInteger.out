@@ -1,22 +1,22 @@
-==19686== Memcheck, a memory error detector
-==19686== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==19686== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
-==19686== Command: ./TestInteger
-==19686== 
+==20025== Memcheck, a memory error detector
+==20025== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==20025== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==20025== Command: ./TestInteger
+==20025== 
 Running main() from gtest_main.cc
 [==========] Running 90 tests from 1 test case.
 [----------] Global test environment set-up.
 [----------] 90 tests from IntegerFixture
 [ RUN      ] IntegerFixture.shift_left_1
-[       OK ] IntegerFixture.shift_left_1 (22 ms)
+[       OK ] IntegerFixture.shift_left_1 (23 ms)
 [ RUN      ] IntegerFixture.shift_left_2
 [       OK ] IntegerFixture.shift_left_2 (5 ms)
 [ RUN      ] IntegerFixture.shift_left_3
-[       OK ] IntegerFixture.shift_left_3 (4 ms)
+[       OK ] IntegerFixture.shift_left_3 (5 ms)
 [ RUN      ] IntegerFixture.shift_left_4
 [       OK ] IntegerFixture.shift_left_4 (5 ms)
 [ RUN      ] IntegerFixture.shift_left_5
-[       OK ] IntegerFixture.shift_left_5 (5 ms)
+[       OK ] IntegerFixture.shift_left_5 (4 ms)
 [ RUN      ] IntegerFixture.shift_right_1
 [       OK ] IntegerFixture.shift_right_1 (6 ms)
 [ RUN      ] IntegerFixture.shift_right_2
@@ -24,9 +24,9 @@ Running main() from gtest_main.cc
 [ RUN      ] IntegerFixture.shift_right_3
 [       OK ] IntegerFixture.shift_right_3 (4 ms)
 [ RUN      ] IntegerFixture.shift_right_4
-[       OK ] IntegerFixture.shift_right_4 (4 ms)
+[       OK ] IntegerFixture.shift_right_4 (5 ms)
 [ RUN      ] IntegerFixture.shift_right_5
-[       OK ] IntegerFixture.shift_right_5 (5 ms)
+[       OK ] IntegerFixture.shift_right_5 (4 ms)
 [ RUN      ] IntegerFixture.plus_1
 [       OK ] IntegerFixture.plus_1 (9 ms)
 [ RUN      ] IntegerFixture.plus_2
@@ -50,21 +50,21 @@ Running main() from gtest_main.cc
 [ RUN      ] IntegerFixture.multiplies_2
 [       OK ] IntegerFixture.multiplies_2 (7 ms)
 [ RUN      ] IntegerFixture.multiplies_3
-[       OK ] IntegerFixture.multiplies_3 (7 ms)
+[       OK ] IntegerFixture.multiplies_3 (8 ms)
 [ RUN      ] IntegerFixture.multiplies_4
-[       OK ] IntegerFixture.multiplies_4 (8 ms)
+[       OK ] IntegerFixture.multiplies_4 (9 ms)
 [ RUN      ] IntegerFixture.multiplies_5
-[       OK ] IntegerFixture.multiplies_5 (9 ms)
+[       OK ] IntegerFixture.multiplies_5 (8 ms)
 [ RUN      ] IntegerFixture.multiplies_6
-[       OK ] IntegerFixture.multiplies_6 (6 ms)
+[       OK ] IntegerFixture.multiplies_6 (7 ms)
 [ RUN      ] IntegerFixture.divide_1
-[       OK ] IntegerFixture.divide_1 (38 ms)
+[       OK ] IntegerFixture.divide_1 (39 ms)
 [ RUN      ] IntegerFixture.divide_2
-[       OK ] IntegerFixture.divide_2 (14 ms)
+[       OK ] IntegerFixture.divide_2 (13 ms)
 [ RUN      ] IntegerFixture.divide_3
-[       OK ] IntegerFixture.divide_3 (13 ms)
+[       OK ] IntegerFixture.divide_3 (12 ms)
 [ RUN      ] IntegerFixture.divide_4
-[       OK ] IntegerFixture.divide_4 (8 ms)
+[       OK ] IntegerFixture.divide_4 (7 ms)
 [ RUN      ] IntegerFixture.divide_5
 [       OK ] IntegerFixture.divide_5 (7 ms)
 [ RUN      ] IntegerFixture.divide_6
@@ -74,19 +74,19 @@ Running main() from gtest_main.cc
 [ RUN      ] IntegerFixture.equal_2
 [       OK ] IntegerFixture.equal_2 (4 ms)
 [ RUN      ] IntegerFixture.equal_3
-[       OK ] IntegerFixture.equal_3 (2 ms)
+[       OK ] IntegerFixture.equal_3 (3 ms)
 [ RUN      ] IntegerFixture.lt_1
 [       OK ] IntegerFixture.lt_1 (3 ms)
 [ RUN      ] IntegerFixture.lt_2
 [       OK ] IntegerFixture.lt_2 (2 ms)
 [ RUN      ] IntegerFixture.lt_3
-[       OK ] IntegerFixture.lt_3 (4 ms)
+[       OK ] IntegerFixture.lt_3 (3 ms)
 [ RUN      ] IntegerFixture.lt_4
-[       OK ] IntegerFixture.lt_4 (2 ms)
+[       OK ] IntegerFixture.lt_4 (3 ms)
 [ RUN      ] IntegerFixture.lt_5
-[       OK ] IntegerFixture.lt_5 (3 ms)
+[       OK ] IntegerFixture.lt_5 (2 ms)
 [ RUN      ] IntegerFixture.output_1
-[       OK ] IntegerFixture.output_1 (7 ms)
+[       OK ] IntegerFixture.output_1 (6 ms)
 [ RUN      ] IntegerFixture.output_2
 [       OK ] IntegerFixture.output_2 (3 ms)
 [ RUN      ] IntegerFixture.output_3
@@ -112,13 +112,13 @@ Running main() from gtest_main.cc
 [ RUN      ] IntegerFixture.exconstr_1
 [       OK ] IntegerFixture.exconstr_1 (4 ms)
 [ RUN      ] IntegerFixture.exconstr_2
-[       OK ] IntegerFixture.exconstr_2 (3 ms)
+[       OK ] IntegerFixture.exconstr_2 (4 ms)
 [ RUN      ] IntegerFixture.exconstr_3
-[       OK ] IntegerFixture.exconstr_3 (4 ms)
+[       OK ] IntegerFixture.exconstr_3 (3 ms)
 [ RUN      ] IntegerFixture.exconstr_4
-[       OK ] IntegerFixture.exconstr_4 (3 ms)
+[       OK ] IntegerFixture.exconstr_4 (4 ms)
 [ RUN      ] IntegerFixture.neg_1
-[       OK ] IntegerFixture.neg_1 (4 ms)
+[       OK ] IntegerFixture.neg_1 (3 ms)
 [ RUN      ] IntegerFixture.neg_2
 [       OK ] IntegerFixture.neg_2 (3 ms)
 [ RUN      ] IntegerFixture.neg_3
@@ -146,7 +146,7 @@ Running main() from gtest_main.cc
 [ RUN      ] IntegerFixture.multeq_1
 [       OK ] IntegerFixture.multeq_1 (13 ms)
 [ RUN      ] IntegerFixture.multeq_2
-[       OK ] IntegerFixture.multeq_2 (4 ms)
+[       OK ] IntegerFixture.multeq_2 (3 ms)
 [ RUN      ] IntegerFixture.multeq_3
 [       OK ] IntegerFixture.multeq_3 (3 ms)
 [ RUN      ] IntegerFixture.multeq_4
@@ -156,25 +156,25 @@ Running main() from gtest_main.cc
 [ RUN      ] IntegerFixture.diveq_2
 [       OK ] IntegerFixture.diveq_2 (5 ms)
 [ RUN      ] IntegerFixture.diveq_3
-[       OK ] IntegerFixture.diveq_3 (10 ms)
+[       OK ] IntegerFixture.diveq_3 (11 ms)
 [ RUN      ] IntegerFixture.modeq_1
-[       OK ] IntegerFixture.modeq_1 (40 ms)
+[       OK ] IntegerFixture.modeq_1 (39 ms)
 [ RUN      ] IntegerFixture.modeq_2
 [       OK ] IntegerFixture.modeq_2 (6 ms)
 [ RUN      ] IntegerFixture.modeq_3
-[       OK ] IntegerFixture.modeq_3 (16 ms)
+[       OK ] IntegerFixture.modeq_3 (15 ms)
 [ RUN      ] IntegerFixture.sleq_1
 [       OK ] IntegerFixture.sleq_1 (11 ms)
 [ RUN      ] IntegerFixture.sleq_2
-[       OK ] IntegerFixture.sleq_2 (3 ms)
+[       OK ] IntegerFixture.sleq_2 (2 ms)
 [ RUN      ] IntegerFixture.sleq_3
 [       OK ] IntegerFixture.sleq_3 (2 ms)
 [ RUN      ] IntegerFixture.sreq_1
-[       OK ] IntegerFixture.sreq_1 (6 ms)
+[       OK ] IntegerFixture.sreq_1 (7 ms)
 [ RUN      ] IntegerFixture.sreq_2
-[       OK ] IntegerFixture.sreq_2 (4 ms)
+[       OK ] IntegerFixture.sreq_2 (3 ms)
 [ RUN      ] IntegerFixture.sreq_3
-[       OK ] IntegerFixture.sreq_3 (3 ms)
+[       OK ] IntegerFixture.sreq_3 (4 ms)
 [ RUN      ] IntegerFixture.abs_1
 [       OK ] IntegerFixture.abs_1 (4 ms)
 [ RUN      ] IntegerFixture.abs_2
@@ -182,25 +182,25 @@ Running main() from gtest_main.cc
 [ RUN      ] IntegerFixture.abs_3
 [       OK ] IntegerFixture.abs_3 (2 ms)
 [ RUN      ] IntegerFixture.pow_1
-[       OK ] IntegerFixture.pow_1 (6 ms)
+[       OK ] IntegerFixture.pow_1 (7 ms)
 [ RUN      ] IntegerFixture.pow_2
 [       OK ] IntegerFixture.pow_2 (3 ms)
 [ RUN      ] IntegerFixture.pow_3
-[       OK ] IntegerFixture.pow_3 (2 ms)
-[----------] 90 tests from IntegerFixture (639 ms total)
+[       OK ] IntegerFixture.pow_3 (3 ms)
+[----------] 90 tests from IntegerFixture (638 ms total)
 
 [----------] Global test environment tear-down
-[==========] 90 tests from 1 test case ran. (668 ms total)
+[==========] 90 tests from 1 test case ran. (666 ms total)
 [  PASSED  ] 90 tests.
-==19686== 
-==19686== HEAP SUMMARY:
-==19686==     in use at exit: 0 bytes in 0 blocks
-==19686==   total heap usage: 5,536 allocs, 5,536 frees, 246,232 bytes allocated
-==19686== 
-==19686== All heap blocks were freed -- no leaks are possible
-==19686== 
-==19686== For counts of detected and suppressed errors, rerun with: -v
-==19686== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==20025== 
+==20025== HEAP SUMMARY:
+==20025==     in use at exit: 0 bytes in 0 blocks
+==20025==   total heap usage: 5,536 allocs, 5,536 frees, 246,232 bytes allocated
+==20025== 
+==20025== All heap blocks were freed -- no leaks are possible
+==20025== 
+==20025== For counts of detected and suppressed errors, rerun with: -v
+==20025== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 File 'TestInteger.c++'
 Lines executed:97.92% of 624
 Branches executed:76.31% of 2988
@@ -351,10 +351,10 @@ No calls
 Removing 'basic_ios.h.gcov'
 
 File 'Integer.h'
-Lines executed:89.25% of 521
+Lines executed:89.21% of 519
 Branches executed:91.73% of 1064
 Taken at least once:61.09% of 1064
-Calls executed:79.72% of 858
+Calls executed:79.60% of 853
 Creating 'Integer.h.gcov'
 
 File '/usr/include/c++/4.8/ext/alloc_traits.h'

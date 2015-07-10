@@ -37,9 +37,7 @@ clean:
 	rm -f *.gcno
 	rm -f *.gcov
 	rm -f RunInteger
-	rm -f RunInteger.out
 	rm -f TestInteger
-	rm -f TestInteger.out
 
 config:
 	git config -l
