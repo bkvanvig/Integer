@@ -898,7 +898,7 @@ class Integer {
                     continue;
                 }
 
-                // If reached, _x[sz] is either an important 0, or middle nonzero
+                // If reached, _x[sz] is either an important 0, or nonzero
                 ++result;
                 --sz;
             }
@@ -927,7 +927,6 @@ class Integer {
             
             _size = 0;
             _neg = false;
-            //_x.push_back(0);
 
             if (value == 0){
                 _size = 1;
