@@ -27,7 +27,7 @@ TEST(IntegerFixture, shift_left_1){
     vector<int> v = {1, 2, 3, 4, 5, 6};
     vector<int> w = {2, 2, 2, 2, 2, 2};
     vector<int>::iterator x = shift_left_digits(v.begin(), v.begin()+3, 2, w.begin());
-    vector<int> y = {0, 0, 1, 2, 3};
+    vector<int> y = {0, 0, 1, 2, 3,};
     ASSERT_TRUE(equal(w.begin(), x, y.begin()));
 
 }
@@ -182,7 +182,8 @@ TEST(IntegerFixture, minus_1){
     vector<int> x = {0, 0, 0, 0, 0, 0};
     vector<int>::iterator x1 = minus_digits(v.begin(), v.begin()+6, w.begin(), w.begin()+6, x.begin());
     vector<int> y = {8, 7, 7, 7, 7, 0};
-    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    ASSERT_EQ(x, y);
+    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
 }
 
 TEST(IntegerFixture, minus_2){
@@ -191,7 +192,8 @@ TEST(IntegerFixture, minus_2){
     vector<int> x = {0, 0, 0, 0, 0, 0};
     vector<int>::iterator x1 = minus_digits(v.begin()+3, v.begin()+6, w.begin()+3, w.begin()+6, x.begin());
     vector<int> y = {8, 7, 0, 0, 0, 0};
-    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    ASSERT_EQ(x, y);
+    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
 }
 
 TEST(IntegerFixture, minus_3){
@@ -214,51 +216,212 @@ TEST(IntegerFixture, minus_3){
 // ------------------
 
 TEST(IntegerFixture, multiplies_1){
-    vector<int> v = {3, 0, 0, 0, 0, 0};
+    vector<int> v = {3};
     vector<int> w = {2};
-    vector<int> x = {0, 0, 0, 0, 0, 0};
-    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.begin()+1, w.begin(), w.begin()+1, x.begin());
-    vector<int> y = {6, 0, 0};
-    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    //ASSERT_EQ(x, y);
+    vector<int> x = {0, 0, 0};
+    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.end(), w.begin(), w.end(), x.begin());
+    vector<int> y = {6};
+    int sz = x.size();
+    bool sigzero = false;
+    int result = 0;
+    while (sz > 0){
+
+        if (x.at(sz-1) != 0 && !sigzero){
+            sigzero = true;
+        }
+        if (!sigzero && x.at(sz-1) == 0){
+            //typename C::iterator it = _x.begin()+sz-1;
+            x.pop_back();
+            //--_size;
+            --sz;
+            continue;
+        }
+
+        // If reached, _x[sz] is either an important 0, or middle nonzero
+        ++result;
+        --sz;
+    }
+    // if we are trimming a long vector of 0's, cut to one 0
+    if (result == 0){
+        result = 1;
+        x.push_back(0);
+    }
+
+    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    ASSERT_EQ(x, y);
 }
 
 TEST(IntegerFixture, multiplies_2){
-    vector<int> v = {3, 0, 3, 0, 0, 0};
-    vector<int> w = {2, 0};
-    vector<int> x = {0, 0, 0, 0, 0, 0};
-    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.begin()+3, w.begin(), w.begin()+1, x.begin());
+    vector<int> v = {3, 0, 3};
+    vector<int> w = {2};
+    vector<int> x = {0, 0, 0, 0, 0};
+    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.end(), w.begin(), w.end(), x.begin());
     vector<int> y = {6, 0, 6};
-    ASSERT_TRUE(equal(x.begin(), x.begin()+3, y.begin()));
-    //ASSERT_EQ(x, y);
+     int sz = x.size();
+    bool sigzero = false;
+    int result = 0;
+    while (sz > 0){
+
+        if (x.at(sz-1) != 0 && !sigzero){
+            sigzero = true;
+        }
+        if (!sigzero && x.at(sz-1) == 0){
+            //typename C::iterator it = _x.begin()+sz-1;
+            x.pop_back();
+            //--_size;
+            --sz;
+            continue;
+        }
+
+        // If reached, _x[sz] is either an important 0, or middle nonzero
+        ++result;
+        --sz;
+    }
+    // if we are trimming a long vector of 0's, cut to one 0
+    if (result == 0){
+        result = 1;
+        x.push_back(0);
+    }
+    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    ASSERT_EQ(x, y);
 }
 
 TEST(IntegerFixture, multiplies_3){
-    vector<int> v = {1, 2, 3, 5, 0, 0};
-    vector<int> w = {5, 0};
-    vector<int> x = {0, 0, 0, 0, 0, 0};
-    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.begin()+4, w.begin(), w.begin()+1, x.begin());
-    vector<int> y = {5, 0, 6, 6, 2};
-    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    //ASSERT_EQ(x, y);
+    vector<int> v = {1, 2, 3};
+    vector<int> w = {5};
+    vector<int> x = {0, 0, 0, 0, 0};
+    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.end(), w.begin(), w.end(), x.begin());
+    vector<int> y = {5, 0, 6, 1};
+     int sz = x.size();
+    bool sigzero = false;
+    int result = 0;
+    while (sz > 0){
+
+        if (x.at(sz-1) != 0 && !sigzero){
+            sigzero = true;
+        }
+        if (!sigzero && x.at(sz-1) == 0){
+            //typename C::iterator it = _x.begin()+sz-1;
+            x.pop_back();
+            //--_size;
+            --sz;
+            continue;
+        }
+
+        // If reached, _x[sz] is either an important 0, or middle nonzero
+        ++result;
+        --sz;
+    }
+    // if we are trimming a long vector of 0's, cut to one 0
+    if (result == 0){
+        result = 1;
+        x.push_back(0);
+    }
+    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    ASSERT_EQ(x, y);
 }
 
 TEST(IntegerFixture, multiplies_4){
-    vector<int> v = {1, 2, 3, 5, 0, 0};
-    vector<int> w = {0, 0};
+    vector<int> v = {1, 2, 3, 5};
+    vector<int> w = {0};
     vector<int> x = {0, 0, 0, 0, 0, 0};
-    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.begin()+4, w.begin(), w.begin()+1, x.begin());
-    vector<int> y = {0, 0, 0, 0, 0};
-    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.end(), w.begin(), w.end(), x.begin());
+    vector<int> y = {0};
+     int sz = x.size();
+    bool sigzero = false;
+    int result = 0;
+    while (sz > 0){
+
+        if (x.at(sz-1) != 0 && !sigzero){
+            sigzero = true;
+        }
+        if (!sigzero && x.at(sz-1) == 0){
+            //typename C::iterator it = _x.begin()+sz-1;
+            x.pop_back();
+            //--_size;
+            --sz;
+            continue;
+        }
+
+        // If reached, _x[sz] is either an important 0, or middle nonzero
+        ++result;
+        --sz;
+    }
+    // if we are trimming a long vector of 0's, cut to one 0
+    if (result == 0){
+        result = 1;
+        x.push_back(0);
+    }
+    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    ASSERT_EQ(x, y);
 }
 
 TEST(IntegerFixture, multiplies_5){
-    vector<int> v = {1, 2, 3, 5, 0, 0};
-    vector<int> w = {1, 0};
+    vector<int> v = {1, 2, 3, 5};
+    vector<int> w = {1};
     vector<int> x = {0, 0, 0, 0, 0, 0};
-    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.begin()+4, w.begin(), w.begin()+1, x.begin());
-    vector<int> y = {1, 2, 3, 5, 0};
+    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.end(), w.begin(), w.end(), x.begin());
+    vector<int> y = {1, 2, 3, 5};
+     int sz = x.size();
+    bool sigzero = false;
+    int result = 0;
+    while (sz > 0){
+
+        if (x.at(sz-1) != 0 && !sigzero){
+            sigzero = true;
+        }
+        if (!sigzero && x.at(sz-1) == 0){
+            //typename C::iterator it = _x.begin()+sz-1;
+            x.pop_back();
+            //--_size;
+            --sz;
+            continue;
+        }
+
+        // If reached, _x[sz] is either an important 0, or middle nonzero
+        ++result;
+        --sz;
+    }
+    // if we are trimming a long vector of 0's, cut to one 0
+    if (result == 0){
+        result = 1;
+        x.push_back(0);
+    }
     ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+}
+
+TEST(IntegerFixture, multiplies_6){
+    std::vector<int> v = {3, 2, 1};
+    std::vector<int> w = {6, 5, 4};
+    std::vector<int> x = {0, 0, 0, 0, 0, 0, 0, 0};
+    vector<int>::iterator x1 = multiplies_digits(v.begin(), v.end(), w.begin(), w.end(), x.begin());
+    std::vector<int> u = {8, 8, 0, 6, 5};
+     int sz = x.size();
+    bool sigzero = false;
+    int result = 0;
+    while (sz > 0){
+
+        if (x.at(sz-1) != 0 && !sigzero){
+            sigzero = true;
+        }
+        if (!sigzero && x.at(sz-1) == 0){
+            //typename C::iterator it = _x.begin()+sz-1;
+            x.pop_back();
+            //--_size;
+            --sz;
+            continue;
+        }
+
+        // If reached, _x[sz] is either an important 0, or middle nonzero
+        ++result;
+        --sz;
+    }
+    // if we are trimming a long vector of 0's, cut to one 0
+    if (result == 0){
+        result = 1;
+        x.push_back(0);
+    }
+    ASSERT_EQ(x, u);
 }
 
 // ------------------
@@ -701,7 +864,13 @@ TEST(IntegerFixture, multeq_3){
     ASSERT_EQ(v, u);
 }
 
-//TEST(IntegerFixture, multeq_4){}
+TEST(IntegerFixture, multeq_4){
+    Integer<int> v = 111111;
+    Integer<int> w = 222222;
+    Integer<int> u("24691308642");
+    v *= w;
+    ASSERT_EQ(v, u);
+}
 
 //TEST(IntegerFixture, multeq_5){}
 
@@ -894,6 +1063,11 @@ TEST(IntegerFixture, pow_3){
     ASSERT_TRUE(v==u);
 }
 
-//TEST(IntegerFixture, pow_4){}
+// TEST(IntegerFixture, pow_4){
+//     Integer<int> v = 2;
+//     Integer<int> u ("");
+//     v = v.pow(4423)-1;
+//     ASSERT_TRUE(v==u);
+// }
 
 //TEST(IntegerFixture, pow_5){}
