@@ -264,7 +264,7 @@ FI minus_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     std::vector<int> num1;
     std::vector<int> num2;
     std::vector<int> result;
-    vector<int>::iterator y = result.begin();
+
     while (b1 != e1){ 
         num1.push_back(*b1++);
     }
@@ -343,15 +343,15 @@ FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     result.resize(num1.size() + num2.size() + 1);
 
     // if either number is 0, return 0
-    if ((num1.size() == 1 && num1.at(0)==0) || 
-         (num2.size() == 1 && num2.at(0)==0)){
+    if (((num1.size() == 1) && (num1.at(0)==0)) || 
+         ((num2.size() == 1) && (num2.at(0)==0))){
         *x = 0;
         ++x;
         return x;
     }
 
     // if b2 is 1, return b1 as x
-    if (num2.size() ==1 && num2.at(0) ==1){
+    if ((num2.size() ==1) && (num2.at(0) ==1)){
         int i = 0;
         while (i < num1.size()){
             *x = num1.at(i);
@@ -399,7 +399,7 @@ FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
 
     // Write product to output iterator
     int k = 0;
-    vector<int>::iterator it = result.begin();
+
     while (k < result.size()-1){
         *x = result.at(k);
         ++x;
@@ -448,14 +448,14 @@ FI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     
 
      // If num1 < num2 then return 0 as answer
-    if (num1.size() <= num2.size() && num1.back() < num2.back()){
+    if ((num1.size() <= num2.size()) && (num1.back() < num2.back())){
         *x = 0; 
         ++x;
         return x;
     }
 
     // if num2 = 0 -> error
-    if (num2.size() == 1 && num2.at(0) == 0){
+    if ((num2.size() == 1) && (num2.at(0) == 0)){
         throw invalid_argument("Divide by zero");
     }
 
@@ -472,7 +472,7 @@ FI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     std::vector<int> numshift(num1.size());
     result.resize(num1.size());
     std::vector<int> one(1);
-    one.at(0) =1;
+    one.at(0) = 1;
 
     vector<int>::iterator it = numshift.begin();
 
@@ -1250,7 +1250,6 @@ class Integer {
                 _x.at(i) = v.at(i);
                 ++i;
             }
-            //cout << "ok " << endl;
 
             _size = trim();
             return *this;}
@@ -1392,7 +1391,9 @@ class Integer {
             if (((this == 0) && (e == 0)) || (e < 0)){
                 throw invalid_argument("Integer: pow");
             }
+
             Integer tmp = 1;
+
             while (e > 0){
                 if ((e%2) == 1){
                     tmp *= *this;
@@ -1402,6 +1403,7 @@ class Integer {
                     e/=2;
                 }
             }
+
             *this = tmp;
             return *this;}};
 

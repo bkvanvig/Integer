@@ -17,4 +17,5 @@ Estimated Time to Completion: 15 hours
 7-8-15		 8:30 - 11:00
 7-9-15		11:00 - 12:45
 7-9-15		 4:00 -  9:00
-TOTAL 34
+7-10-15		12:00 -  3:00
+TOTAL 37
