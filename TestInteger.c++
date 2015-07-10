@@ -215,10 +215,10 @@ TEST(IntegerFixture, minus_3){
 
 TEST(IntegerFixture, multiplies_1){
     vector<int> v = {3, 0, 0, 0, 0, 0};
-    vector<int> w = {2, 0};
+    vector<int> w = {2};
     vector<int> x = {0, 0, 0, 0, 0, 0};
     vector<int>::iterator x1 = multiplies_digits(v.begin(), v.begin()+1, w.begin(), w.begin()+1, x.begin());
-    vector<int> y = {6};
+    vector<int> y = {6, 0, 0};
     ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
     //ASSERT_EQ(x, y);
 }
@@ -890,7 +890,7 @@ TEST(IntegerFixture, pow_2){
 TEST(IntegerFixture, pow_3){
     Integer<int> v = 1;
     Integer<int> u = 1;
-    v.pow(1324161423);
+    v.pow(132413);
     ASSERT_TRUE(v==u);
 }
 

@@ -352,7 +352,9 @@ FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     }
     while (b2 != e2){ 
         num2.push_back(*b2++);}
-    result.resize(num1.size() + num2.size());
+
+    result.resize(num1.size() + num2.size()+1);
+    
     if (num1.size() < num2.size()){
         std::vector<int> v(num1.size());
         v = num1;
@@ -585,7 +587,7 @@ FI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
 // Integer
 // -------
 
-template < typename T, typename C = std::vector<T> >
+template < typename T = int, typename C = std::vector<T> >
 class Integer {
     // -----------
     // operator ==
@@ -1164,11 +1166,9 @@ class Integer {
             // <your code>
             
             // Double size in case needed
-            int i = _size +rhs._size;
-            while (_size < i){
-                _x.push_back(0);
-                ++_size;
-            }
+            int i = _size + rhs._size + 1;
+            _x.resize(i);
+            std::vector<int> v(i);
 
             auto b1 = _x.begin();
             auto b2 = rhs._x.begin();
@@ -1176,7 +1176,7 @@ class Integer {
             auto e2 = rhs._x.end();
             auto x = _x.begin();
 
-            x = multiplies_digits(b1, e1, b2, e2, x);
+            x = multiplies_digits(b1, e1, b2, e2, v.begin());
 
             // Change sign flag according to signs of digits
             if (_neg && !rhs._neg)
@@ -1186,6 +1186,7 @@ class Integer {
             else
                 _neg = false;
 
+            copy(v.begin(), x, _x.begin());
 
             _size = trim();
             return *this;}
@@ -1231,6 +1232,9 @@ class Integer {
          */
         Integer& operator %= (const Integer& rhs) {
             // <your code>
+
+            _x.resize(_size + rhs._size + 1);
+
             std::vector<int> dv(_size);
             std::vector<int> mult(_size + rhs._size + 1);
             std::vector<int> mod(_size+1);
@@ -1253,12 +1257,12 @@ class Integer {
             //     cout << mult.at(i-1) << " ";}
             // cout << endl;
 
-            z = minus_digits(_x.begin(), _x.end(), mult.begin(), mult.end(), _x.begin());
+            z = minus_digits(_x.begin(), _x.end(), mult.begin(), mult.end(), mod.begin());
             // for (int i = mod.size(); i >0; --i){
             //     cout << mod.at(i-1) << " ";}
             // cout << endl;
-
-            //copy(mod.begin(), mod.end(), _x.begin());
+            
+            copy(mod.begin(), mod.end(), _x.begin());
             
             _size = trim();
             //cout << _size << endl;
@@ -1326,7 +1330,25 @@ class Integer {
          */
         Integer& pow (int e) {
             // <your code>
-            //while (e > 0){}
+            if (e == 1)
+                return *this;
+            if (_size ==1 && _x.at(0) == 1)
+                return *this;
+                
+            if (((this == 0) && (e == 0)) || (e < 0)){
+                throw invalid_argument("Integer: pow");
+            }
+            Integer tmp = 1;
+            while (e > 0){
+                if ((e%2) == 1){
+                    tmp *= *this;
+                    --e;}
+                else{
+                    *this *= *this;
+                    e/=2;
+                }
+            }
+            *this = tmp;
             return *this;}};
 
 #endif // Integer_h
