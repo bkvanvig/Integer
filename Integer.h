@@ -468,6 +468,8 @@ FI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     if (diff > 0){
         it = shift_left_digits(one.begin(), one.end(), diff, it);
     }
+    else
+        it = shift_left_digits(one.begin(), one.end(), num1.size()-1, it);
     
     // cout << "shifted ";
     //     for (int l = numshift.size(); l >0; --l){
@@ -1229,8 +1231,39 @@ class Integer {
          */
         Integer& operator %= (const Integer& rhs) {
             // <your code>
+            std::vector<int> dv(_size);
+            std::vector<int> mult(_size + rhs._size + 1);
+            std::vector<int> mod(_size+1);
 
-            return *this;}
+            auto b1 = _x.begin();
+            auto b2 = rhs._x.begin();
+            auto e1 = _x.end();
+            auto e2 = rhs._x.end();
+            auto x  = dv.begin();
+            auto y  = mult.begin();
+            auto z  = mod.begin();
+
+            x = divides_digits(b1, e1, b2, e2, x);
+            // for (int i = dv.size(); i >0; --i){
+            //     cout << dv.at(i-1) << " ";}
+            // cout << endl;
+
+            y = multiplies_digits(dv.begin(), dv.end(), b2, e2, y);
+            // for (int i = mult.size(); i >0; --i){
+            //     cout << mult.at(i-1) << " ";}
+            // cout << endl;
+
+            z = minus_digits(_x.begin(), _x.end(), mult.begin(), mult.end(), _x.begin());
+            // for (int i = mod.size(); i >0; --i){
+            //     cout << mod.at(i-1) << " ";}
+            // cout << endl;
+
+            //copy(mod.begin(), mod.end(), _x.begin());
+            
+            _size = trim();
+            //cout << _size << endl;
+            return *this;
+        }
 
         // ------------
         // operator <<=

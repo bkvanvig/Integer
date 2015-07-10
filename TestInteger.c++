@@ -750,7 +750,8 @@ TEST(IntegerFixture, modeq_1){
     Integer<int> w = 2;
     Integer<int> u = 1;
     v %= w;
-    ASSERT_TRUE(v==u);
+    //ASSERT_TRUE(v==u);
+    ASSERT_EQ(v, u);
 }
 
 TEST(IntegerFixture, modeq_2){
@@ -758,7 +759,8 @@ TEST(IntegerFixture, modeq_2){
     Integer<int> w = 15;
     Integer<int> u = 7;
     v %= w;
-    ASSERT_TRUE(v==u);
+    //ASSERT_TRUE(v==u);
+    ASSERT_EQ(v, u);
 }
 
 TEST(IntegerFixture, modeq_3){
@@ -766,7 +768,8 @@ TEST(IntegerFixture, modeq_3){
     Integer<int> w = 37;
     Integer<int> u = 8;
     v %= w;
-    ASSERT_TRUE(v==u);
+    //ASSERT_TRUE(v==u);
+    ASSERT_EQ(v, u);
 }
 
 //TEST(IntegerFixture, modeq_4){}
