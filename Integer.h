@@ -344,7 +344,7 @@ FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
 
     // if either number is 0, return 0
     if ((num1.size() == 1 && num1.at(0)==0) || 
-         num2.size() == 1 && num2.at(0)==0){
+         (num2.size() == 1 && num2.at(0)==0)){
         *x = 0;
         ++x;
         return x;
@@ -372,17 +372,9 @@ FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
         return x;
     }
 
-    // std::vector<int> v(num2.size());
-    // if (lt_digits(num1.begin(), num1.end(), num2.begin(), num2.end())){
-    //     v = num1;
-    //     num1 = num2;
-    //     num2 = v;
-    // }
-
     /* This assumes the natural form of the bottom number being shorter or equal to the top number
      * In this case, the top number is num1, the bottom number is num2
      */
-     //cout << num2.size() << "size" << num1.size() << endl;
      int carry = 0;
     for (int i = 0; i < num2.size(); ++i){
         
@@ -469,7 +461,6 @@ FI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
 
     // if num2 = 1 -> answer = num1
     if (num2.size() == 1 && num2.at(0) == 1){
-        int i = 0;
         for (int i = 0; i< num1.size(); ++i){
             *x = num1[i];
             ++x;
@@ -661,7 +652,7 @@ class Integer {
      * operator >
      * @param Integer lhs, the left hand side of the equation
      * @param Integer rhs, the right hand size of the equation
-     * @return bool, true if lhs <= rhs, false otherwise
+     * @return bool, true if lhs > rhs, false otherwise
      */
     friend bool operator > (const Integer& lhs, const Integer& rhs) {
         return (rhs < lhs);}
@@ -671,7 +662,10 @@ class Integer {
     // -----------
 
     /**
-     * <your documentation>
+     * operator >=
+     * @param Integer lhs, the left hand side of the equation
+     * @param Integer rhs, the right hand size of the equation
+     * @return bool, true if lhs >= rhs, false otherwise
      */
     friend bool operator >= (const Integer& lhs, const Integer& rhs) {
         return !(lhs < rhs);}
@@ -681,7 +675,10 @@ class Integer {
     // ----------
 
     /**
-     * <your documentation>
+     * operator +
+     * @param Integer lhs, the left hand side of the equation
+     * @param Integer rhs, the right hand size of the equation
+     * @return Integer object with value & sign of lhs + rhs
      */
     friend Integer operator + (Integer lhs, const Integer& rhs) {
         return lhs += rhs;}
@@ -691,7 +688,10 @@ class Integer {
     // ----------
 
     /**
-     * <your documentation>
+     * operator -
+     * @param Integer lhs, the left hand side of the equation
+     * @param Integer rhs, the right hand size of the equation
+     * @return Integer object with value & sign of lhs - rhs
      */
     friend Integer operator - (Integer lhs, const Integer& rhs) {
         return lhs -= rhs;}
@@ -701,7 +701,10 @@ class Integer {
     // ----------
 
     /**
-     * <your documentation>
+     * operator *
+     * @param Integer lhs, the left hand side of the equation
+     * @param Integer rhs, the right hand size of the equation
+     * @return Integer object with value & sign of lhs * rhs
      */
     friend Integer operator * (Integer lhs, const Integer& rhs) {
         return lhs *= rhs;}
@@ -711,7 +714,10 @@ class Integer {
     // ----------
 
     /**
-     * <your documentation>
+     * operator /
+     * @param Integer lhs, the left hand side of the equation
+     * @param Integer rhs, the right hand size of the equation
+     * @return Integer object with value & sign of lhs / rhs
      * @throws invalid_argument if (rhs == 0)
      */
     friend Integer operator / (Integer lhs, const Integer& rhs) {
@@ -722,7 +728,10 @@ class Integer {
     // ----------
 
     /**
-     * <your documentation>
+     * operator %
+     * @param Integer lhs, the left hand side of the equation
+     * @param Integer rhs, the right hand size of the equation
+     * @return Integer object with value & sign of lhs % rhs
      * @throws invalid_argument if (rhs <= 0)
      */
     friend Integer operator % (Integer lhs, const Integer& rhs) {
@@ -733,7 +742,10 @@ class Integer {
     // -----------
 
     /**
-     * <your documentation>
+     * operator <<
+     * @param Integer lhs, the left hand side of the equation
+     * @param int rhs, the right hand size of the equation
+     * @return Integer object with value & sign of lhs << rhs
      * @throws invalid_argument if (rhs < 0)
      */
     friend Integer operator << (Integer lhs, int rhs) {
@@ -744,7 +756,10 @@ class Integer {
     // -----------
 
     /**
-     * <your documentation>
+     * operator >>
+     * @param Integer lhs, the left hand side of the equation
+     * @param int rhs, the right hand size of the equation
+     * @return Integer object with value & sign of lhs >> rhs
      * @throws invalid_argument if (rhs < 0)
      */
     friend Integer operator >> (Integer lhs, int rhs) {
@@ -755,7 +770,10 @@ class Integer {
     // -----------
 
     /**
-     * <your documentation>
+     * output operator <<
+     * @param ostream lhs, the output stream
+     * @param Integer rhs, the Integer object to be printed
+     * @return ostream with Integer rhs outputted
      */
     friend std::ostream& operator << (std::ostream& lhs, const Integer& rhs) {
         // <your code>
@@ -766,6 +784,11 @@ class Integer {
             int i = size;
             if (rhs._neg)
                 lhs << "-";
+
+            // Output the container in opposite order of storage
+            // ex: value = 123456
+            //     stored as {6, 5, 4, 3, 2, 1}
+            //     outputted: 123456
             while (i > 0){
                 int value = rhs._x.at(i-1);
                 if (value!=0 && !sigzero)
@@ -778,6 +801,7 @@ class Integer {
                 lhs << value;
                 --i;
             }
+        // This will be reached if no significant digits were found
         if (empty)
             lhs << "0";
         return lhs;}
@@ -788,7 +812,8 @@ class Integer {
 
     /**
      * absolute value
-     * <your documentation>
+     * @param Integer x
+     * @return Integer object with absolute value of x
      */
     friend Integer abs (Integer x) {
         return x.abs();}
@@ -799,7 +824,9 @@ class Integer {
 
     /**
      * power
-     * <your documentation>
+     * @param Integer x, the base
+     * @param int e, the exponent
+     * @return Integer object with value & sign of x^e
      * @throws invalid_argument if ((x == 0) && (e == 0)) || (e < 0)
      */
     friend Integer pow (Integer x, int e) {
@@ -812,8 +839,10 @@ class Integer {
 
         C _x; // the backing container
 
-        bool _neg;// sign of value, true = negative
-        int _size;
+        bool _neg; // sign of value, true = negative
+
+        int _size; // size of _x
+
     private:
         // -----
         // valid
@@ -821,6 +850,8 @@ class Integer {
 
         bool valid () const { // class invariant
             // <your code>
+
+
             if (_size == _x.size())
                 return true;
             return false;
@@ -828,7 +859,7 @@ class Integer {
 
     public:
         // ----------
-        // getter
+        // getters
         // ----------
         C getContainer() {
             return _x;
@@ -842,6 +873,15 @@ class Integer {
             return _neg;
         }
 
+
+        // ----------
+        // trim
+        // ----------
+
+        /*
+         * trim
+         * helper method to trim the container to eliminate excess 0's in the front
+         */
         int trim(){
             bool sigzero = false;
             auto sz = _x.size();
@@ -852,7 +892,6 @@ class Integer {
                     sigzero = true;
                 }
                 if (!sigzero && _x.at(sz-1) == 0){
-                    //typename C::iterator it = _x.begin()+sz-1;
                     _x.pop_back();
                     --_size;
                     --sz;
@@ -915,7 +954,9 @@ class Integer {
             assert(valid());}
 
         /**
-         * <your documentation>
+         * reads value into backing container
+         * @param value, string of number
+         * @returns Integer representation of value
          * @throws invalid_argument if value is not a valid representation of an Integer
          */
         explicit Integer (const std::string& value) {
@@ -954,7 +995,8 @@ class Integer {
         // ----------
 
         /**
-         * <your documentation>
+         * operator -
+         * @return Integer object with negation
          */
         Integer operator - () const {
             // <your code>
@@ -972,14 +1014,16 @@ class Integer {
         // -----------
 
         /**
-         * <your documentation>
+         * operator ++ (prefix)
+         * @return Integer incremented
          */
         Integer& operator ++ () {
             *this += 1;
             return *this;}
 
         /**
-         * <your documentation>
+         * operator ++ (postfix)
+         * @return pre-incremented Integer object
          */
         Integer operator ++ (int) {
             Integer x = *this;
@@ -991,14 +1035,16 @@ class Integer {
         // -----------
 
         /**
-         * <your documentation>
+         * operator -- (prefix)
+         * @return decremented Integer object
          */
         Integer& operator -- () {
             *this -= 1;
             return *this;}
 
         /**
-         * <your documentation>
+         * operator -- (postfix)
+         * @return pre-decremented Integer object
          */
         Integer operator -- (int) {
             Integer x = *this;
@@ -1010,7 +1056,9 @@ class Integer {
         // -----------
 
         /**
-         * <your documentation>
+         * operator +=
+         * @param Integer rhs, the right hand size of the equation
+         * @return Integer object (lhs) with value & sign of lhs = lhs + rhs
          */
         Integer& operator += (const Integer& rhs) {
             // <your code>
@@ -1089,7 +1137,9 @@ class Integer {
         // -----------
 
         /**
-         * <your documentation>
+         * operator -=
+         * @param Integer rhs, the right hand size of the equation
+         * @return Integer object (lhs) with value & sign of lhs -= rhs
          */
         Integer& operator -= (const Integer& rhs) {
             // <your code>
@@ -1169,14 +1219,15 @@ class Integer {
         // -----------
 
         /**
-         * <your documentation>
+         * operator *=
+         * @param Integer rhs, the right hand size of the equation
+         * @return Integer object (lhs) with value & sign of lhs *= rhs
          */
         Integer& operator *= (const Integer& rhs) {
             // <your code>
             
-            // Double size in case needed
+            // Double size of temp in case needed
             int i = _size + rhs._size + 1;
-            //_x.resize(i);
             std::vector<int> v(i);
 
             auto b1 = _x.begin();
@@ -1210,7 +1261,9 @@ class Integer {
         // -----------
 
         /**
-         * <your documentation>
+         * operator /=
+         * @param Integer rhs, the right hand size of the equation
+         * @return Integer object (lhs) with value & sign of lhs /= rhs
          * @throws invalid_argument if (rhs == 0)
          */
         Integer& operator /= (const Integer& rhs) {
@@ -1241,25 +1294,17 @@ class Integer {
         // -----------
 
         /**
-         * <your documentation>
+         * operator %=
+         * @param Integer rhs, the right hand size of the equation
+         * @return Integer object (lhs) with value & sign of lhs %= rhs
          * @throws invalid_argument if (rhs <= 0)
          */
         Integer& operator %= (const Integer& rhs) {
             // <your code>
 
-            //_x.resize(_size + rhs._size + 1);
-
             std::vector<int> dv(_size);
             std::vector<int> mult(_size + rhs._size + 1);
             std::vector<int> mod(_size+1);
-
-            // auto b1 = _x.begin();
-            // auto b2 = rhs._x.begin();
-            // auto e1 = _x.end();
-            // auto e2 = rhs._x.end();
-            // auto x  = dv.begin();
-            // auto y  = mult.begin();
-            // auto z  = mod.begin();
 
             Integer templ = *this;
             Integer tempr = rhs;
@@ -1268,26 +1313,9 @@ class Integer {
             templ *= tempr;
             ans -= templ;
 
-            //x = divides_digits(b1, e1, b2, e2, x);
-            // for (int i = dv.size(); i >0; --i){
-            //     cout << dv.at(i-1) << " ";}
-            // cout << endl;
-
-            //y = multiplies_digits(dv.begin(), dv.end(), b2, e2, y);
-            // for (int i = mult.size(); i >0; --i){
-            //     cout << mult.at(i-1) << " ";}
-            // cout << endl;
-
-            //z = minus_digits(_x.begin(), _x.end(), mult.begin(), mult.end(), mod.begin());
-            // for (int i = mod.size(); i >0; --i){
-            //     cout << mod.at(i-1) << " ";}
-            // cout << endl;
-            
-            //copy(mod.begin(), mod.end(), _x.begin());
             *this = ans;
             _size = trim();
 
-            //cout << _size << endl;
             return *this;
         }
 
@@ -1296,7 +1324,9 @@ class Integer {
         // ------------
 
         /**
-         * <your documentation>
+         * operator <<=
+         * @param int n, number of places to shift Integer
+         * @return Integer object (lhs) with value of lhs <<= n
          */
         Integer& operator <<= (int n) {
             // <your code>
@@ -1315,7 +1345,9 @@ class Integer {
         // ------------
 
         /**
-         * <your documentation>
+         * operator >>=
+         * @param int n, number of places to shift Integer
+         * @return Integer object (lhs) with value of lhs >>= n
          */
         Integer& operator >>= (int n) {
             // <your code>
@@ -1335,7 +1367,7 @@ class Integer {
 
         /**
          * absolute value
-         * <your documentation>
+         * @return Integer, representing absolute value
          */
         Integer& abs () {
             _neg = false;
@@ -1347,7 +1379,8 @@ class Integer {
 
         /**
          * power
-         * <your documentation>
+         * @param int e, the exponent
+         * @return Integer object with value of x.pow(e)
          * @throws invalid_argument if ((this == 0) && (e == 0)) or (e < 0)
          */
         Integer& pow (int e) {
