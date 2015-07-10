@@ -1,0 +1,235 @@
+\hypertarget{Integer_8h}{\section{Integer.\-h File Reference}
+\label{Integer_8h}\index{Integer.\-h@{Integer.\-h}}
+}
+{\ttfamily \#include $<$cassert$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$stdexcept$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classInteger}{Integer$<$ T, C $>$}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename I\-I1 , typename I\-I2 $>$ }\\bool \hyperlink{Integer_8h_a6c92bd3038c014d2af10263947fb58d9}{lt\-\_\-digits} (I\-I1 b1, I\-I1 e1, I\-I2 b2, I\-I2 e2)
+\item 
+{\footnotesize template$<$typename I\-I1 , typename I\-I2 $>$ }\\bool \hyperlink{Integer_8h_a6f17d1bb96c9b8a486a4d8f46bd6df7b}{eq\-\_\-digits} (I\-I1 b1, I\-I1 e1, I\-I2 b2, I\-I2 e2)
+\item 
+{\footnotesize template$<$typename I\-I , typename O\-I $>$ }\\O\-I \hyperlink{Integer_8h_afea079e261eff3ea3d0f983308498604}{shift\-\_\-left\-\_\-digits} (I\-I b, I\-I e, int n, O\-I x)
+\item 
+{\footnotesize template$<$typename I\-I , typename O\-I $>$ }\\O\-I \hyperlink{Integer_8h_a48350c008268dff84365430a54395aa3}{shift\-\_\-right\-\_\-digits} (I\-I b, I\-I e, int n, O\-I x)
+\item 
+{\footnotesize template$<$typename I\-I1 , typename I\-I2 , typename F\-I $>$ }\\F\-I \hyperlink{Integer_8h_ae4b8aa43fabaeea2f9d9594a74405e32}{plus\-\_\-digits} (I\-I1 b1, I\-I1 e1, I\-I2 b2, I\-I2 e2, F\-I x)
+\item 
+{\footnotesize template$<$typename I\-I1 , typename I\-I2 , typename F\-I $>$ }\\F\-I \hyperlink{Integer_8h_a5f1855dd3873e5b9add848ff2c8d9179}{minus\-\_\-digits} (I\-I1 b1, I\-I1 e1, I\-I2 b2, I\-I2 e2, F\-I x)
+\item 
+{\footnotesize template$<$typename I\-I1 , typename I\-I2 , typename F\-I $>$ }\\F\-I \hyperlink{Integer_8h_a246b914bb9933d7ed17c50a5228c9c9e}{multiplies\-\_\-digits} (I\-I1 b1, I\-I1 e1, I\-I2 b2, I\-I2 e2, F\-I x)
+\item 
+{\footnotesize template$<$typename I\-I1 , typename I\-I2 , typename F\-I $>$ }\\F\-I \hyperlink{Integer_8h_a70d16a05e077ace3649b935b70bf5675}{divides\-\_\-digits} (I\-I1 b1, I\-I1 e1, I\-I2 b2, I\-I2 e2, F\-I x)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{Integer_8h_a70d16a05e077ace3649b935b70bf5675}{\index{Integer.\-h@{Integer.\-h}!divides\-\_\-digits@{divides\-\_\-digits}}
+\index{divides\-\_\-digits@{divides\-\_\-digits}!Integer.h@{Integer.\-h}}
+\subsubsection[{divides\-\_\-digits}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename I\-I1 , typename I\-I2 , typename F\-I $>$ F\-I divides\-\_\-digits (
+\begin{DoxyParamCaption}
+\item[{I\-I1}]{b1, }
+\item[{I\-I1}]{e1, }
+\item[{I\-I2}]{b2, }
+\item[{I\-I2}]{e2, }
+\item[{F\-I}]{x}
+\end{DoxyParamCaption}
+)}}\label{Integer_8h_a70d16a05e077ace3649b935b70bf5675}
+
+\begin{DoxyParams}{Parameters}
+{\em b} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em b2} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e2} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em x} & an iterator to the beginning of an output sequence (inclusive) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an iterator to the end of an output sequence (exclusive) the sequences are of decimal digits output the division of the two input sequences into the output sequence (\mbox{[}b1, e1) / \mbox{[}b2, e2)) =$>$ x 
+\end{DoxyReturn}
+\hypertarget{Integer_8h_a6f17d1bb96c9b8a486a4d8f46bd6df7b}{\index{Integer.\-h@{Integer.\-h}!eq\-\_\-digits@{eq\-\_\-digits}}
+\index{eq\-\_\-digits@{eq\-\_\-digits}!Integer.h@{Integer.\-h}}
+\subsubsection[{eq\-\_\-digits}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename I\-I1 , typename I\-I2 $>$ bool eq\-\_\-digits (
+\begin{DoxyParamCaption}
+\item[{I\-I1}]{b1, }
+\item[{I\-I1}]{e1, }
+\item[{I\-I2}]{b2, }
+\item[{I\-I2}]{e2}
+\end{DoxyParamCaption}
+)}}\label{Integer_8h_a6f17d1bb96c9b8a486a4d8f46bd6df7b}
+
+\begin{DoxyParams}{Parameters}
+{\em b} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em b2} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e2} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a bool the sequences are of decimal digits output whether (\mbox{[}b1, e1) $<$ \mbox{[}b2, e2)) 
+\end{DoxyReturn}
+\hypertarget{Integer_8h_a6c92bd3038c014d2af10263947fb58d9}{\index{Integer.\-h@{Integer.\-h}!lt\-\_\-digits@{lt\-\_\-digits}}
+\index{lt\-\_\-digits@{lt\-\_\-digits}!Integer.h@{Integer.\-h}}
+\subsubsection[{lt\-\_\-digits}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename I\-I1 , typename I\-I2 $>$ bool lt\-\_\-digits (
+\begin{DoxyParamCaption}
+\item[{I\-I1}]{b1, }
+\item[{I\-I1}]{e1, }
+\item[{I\-I2}]{b2, }
+\item[{I\-I2}]{e2}
+\end{DoxyParamCaption}
+)}}\label{Integer_8h_a6c92bd3038c014d2af10263947fb58d9}
+
+\begin{DoxyParams}{Parameters}
+{\em b} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em b2} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e2} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a bool the sequences are of decimal digits output whether (\mbox{[}b1, e1) $<$ \mbox{[}b2, e2)) 
+\end{DoxyReturn}
+\hypertarget{Integer_8h_a5f1855dd3873e5b9add848ff2c8d9179}{\index{Integer.\-h@{Integer.\-h}!minus\-\_\-digits@{minus\-\_\-digits}}
+\index{minus\-\_\-digits@{minus\-\_\-digits}!Integer.h@{Integer.\-h}}
+\subsubsection[{minus\-\_\-digits}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename I\-I1 , typename I\-I2 , typename F\-I $>$ F\-I minus\-\_\-digits (
+\begin{DoxyParamCaption}
+\item[{I\-I1}]{b1, }
+\item[{I\-I1}]{e1, }
+\item[{I\-I2}]{b2, }
+\item[{I\-I2}]{e2, }
+\item[{F\-I}]{x}
+\end{DoxyParamCaption}
+)}}\label{Integer_8h_a5f1855dd3873e5b9add848ff2c8d9179}
+
+\begin{DoxyParams}{Parameters}
+{\em b} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em b2} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e2} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em x} & an iterator to the beginning of an output sequence (inclusive) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an iterator to the end of an output sequence (exclusive) the sequences are of decimal digits output the difference of the two input sequences into the output sequence (\mbox{[}b1, e1) -\/ \mbox{[}b2, e2)) =$>$ x 
+\end{DoxyReturn}
+\hypertarget{Integer_8h_a246b914bb9933d7ed17c50a5228c9c9e}{\index{Integer.\-h@{Integer.\-h}!multiplies\-\_\-digits@{multiplies\-\_\-digits}}
+\index{multiplies\-\_\-digits@{multiplies\-\_\-digits}!Integer.h@{Integer.\-h}}
+\subsubsection[{multiplies\-\_\-digits}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename I\-I1 , typename I\-I2 , typename F\-I $>$ F\-I multiplies\-\_\-digits (
+\begin{DoxyParamCaption}
+\item[{I\-I1}]{b1, }
+\item[{I\-I1}]{e1, }
+\item[{I\-I2}]{b2, }
+\item[{I\-I2}]{e2, }
+\item[{F\-I}]{x}
+\end{DoxyParamCaption}
+)}}\label{Integer_8h_a246b914bb9933d7ed17c50a5228c9c9e}
+
+\begin{DoxyParams}{Parameters}
+{\em b} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em b2} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e2} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em x} & an iterator to the beginning of an output sequence (inclusive) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an iterator to the end of an output sequence (exclusive) the sequences are of decimal digits output the product of the two input sequences into the output sequence (\mbox{[}b1, e1) $\ast$ \mbox{[}b2, e2)) =$>$ x 
+\end{DoxyReturn}
+\hypertarget{Integer_8h_ae4b8aa43fabaeea2f9d9594a74405e32}{\index{Integer.\-h@{Integer.\-h}!plus\-\_\-digits@{plus\-\_\-digits}}
+\index{plus\-\_\-digits@{plus\-\_\-digits}!Integer.h@{Integer.\-h}}
+\subsubsection[{plus\-\_\-digits}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename I\-I1 , typename I\-I2 , typename F\-I $>$ F\-I plus\-\_\-digits (
+\begin{DoxyParamCaption}
+\item[{I\-I1}]{b1, }
+\item[{I\-I1}]{e1, }
+\item[{I\-I2}]{b2, }
+\item[{I\-I2}]{e2, }
+\item[{F\-I}]{x}
+\end{DoxyParamCaption}
+)}}\label{Integer_8h_ae4b8aa43fabaeea2f9d9594a74405e32}
+
+\begin{DoxyParams}{Parameters}
+{\em b} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em b2} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e2} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em x} & an iterator to the beginning of an output sequence (inclusive) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an iterator to the end of an output sequence (exclusive) the sequences are of decimal digits output the sum of the two input sequences into the output sequence (\mbox{[}b1, e1) + \mbox{[}b2, e2)) =$>$ x 
+\end{DoxyReturn}
+\hypertarget{Integer_8h_afea079e261eff3ea3d0f983308498604}{\index{Integer.\-h@{Integer.\-h}!shift\-\_\-left\-\_\-digits@{shift\-\_\-left\-\_\-digits}}
+\index{shift\-\_\-left\-\_\-digits@{shift\-\_\-left\-\_\-digits}!Integer.h@{Integer.\-h}}
+\subsubsection[{shift\-\_\-left\-\_\-digits}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename I\-I , typename O\-I $>$ O\-I shift\-\_\-left\-\_\-digits (
+\begin{DoxyParamCaption}
+\item[{I\-I}]{b, }
+\item[{I\-I}]{e, }
+\item[{int}]{n, }
+\item[{O\-I}]{x}
+\end{DoxyParamCaption}
+)}}\label{Integer_8h_afea079e261eff3ea3d0f983308498604}
+
+\begin{DoxyParams}{Parameters}
+{\em b} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em x} & an iterator to the beginning of an output sequence (inclusive) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an iterator to the end of an output sequence (exclusive) the sequences are of decimal digits output the shift left of the input sequence into the output sequence (\mbox{[}b, e) $<$$<$ n) =$>$ x 
+\end{DoxyReturn}
+\hypertarget{Integer_8h_a48350c008268dff84365430a54395aa3}{\index{Integer.\-h@{Integer.\-h}!shift\-\_\-right\-\_\-digits@{shift\-\_\-right\-\_\-digits}}
+\index{shift\-\_\-right\-\_\-digits@{shift\-\_\-right\-\_\-digits}!Integer.h@{Integer.\-h}}
+\subsubsection[{shift\-\_\-right\-\_\-digits}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename I\-I , typename O\-I $>$ O\-I shift\-\_\-right\-\_\-digits (
+\begin{DoxyParamCaption}
+\item[{I\-I}]{b, }
+\item[{I\-I}]{e, }
+\item[{int}]{n, }
+\item[{O\-I}]{x}
+\end{DoxyParamCaption}
+)}}\label{Integer_8h_a48350c008268dff84365430a54395aa3}
+
+\begin{DoxyParams}{Parameters}
+{\em b} & an iterator to the beginning of an input sequence (inclusive) \\
+\hline
+{\em e} & an iterator to the end of an input sequence (exclusive) \\
+\hline
+{\em x} & an iterator to the beginning of an output sequence (inclusive) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an iterator to the end of an output sequence (exclusive) the sequences are of decimal digits output the shift right of the input sequence into the output sequence (\mbox{[}b, e) $>$$>$ n) =$>$ x 
+\end{DoxyReturn}

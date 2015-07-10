@@ -1,0 +1,211 @@
+commit 8f39711f467b586e331a2caf554c0bdf6fee112c
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Fri Jul 10 15:25:18 2015 -0500
+
+    all files, close #10
+
+commit 385ad7de64f131d72e43d2a09e2ad186b33cdb56
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Fri Jul 10 14:48:20 2015 -0500
+
+    close #16
+
+commit 7569b71673425e7aaf60ab2b145ff5ac23c0afdb
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Fri Jul 10 14:43:31 2015 -0500
+
+    fixed warnings
+
+commit 665762fb1ef9672b75773b497b3c84aa483723f9
+Merge: 497a9cc c8dc724
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Fri Jul 10 14:33:05 2015 -0500
+
+    Merge branch 'dev' of https://github.com/bkvanvig/cs378-Integer into dev
+
+commit 497a9cc6604b4c34c96330f434731ff7873c3128
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Fri Jul 10 14:32:22 2015 -0500
+
+    final version with comments
+
+commit c8dc724cdd7c34b47a02e34bd0ffc077f9124eb3
+Author: Brittany Kvanvig <bkvanvig@users.noreply.github.com>
+Date:   Fri Jul 10 14:28:12 2015 -0500
+
+    Delete makefile2
+
+commit d673b2443b111aa3823dd5884f733c4f7dd527b2
+Author: Brittany Kvanvig <bkvanvig@users.noreply.github.com>
+Date:   Fri Jul 10 14:27:43 2015 -0500
+
+    Delete RunInteger
+
+commit f842c4e4237cf2df21de0297924c081cc35337e2
+Author: Brittany Kvanvig <bkvanvig@users.noreply.github.com>
+Date:   Fri Jul 10 14:27:36 2015 -0500
+
+    Delete TestInteger
+
+commit 0096b04c7aa2757381e1d55e5b25df585ac52e0d
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Fri Jul 10 14:13:09 2015 -0500
+
+    improved comments, close #14, close #9
+
+commit 4e2692010cb9635c6368fb20f4a1c3573aa11ada
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Fri Jul 10 13:45:59 2015 -0500
+
+    working equationsgit add Integer.h TestInteger.c++git add Integer.h TestInteger.c++ close #7, close #8, close #17, close #5
+
+commit c4dab446da38906ab3f19cbd06de5f6c7641a1d2
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Thu Jul 9 21:13:08 2015 -0500
+
+    implemented simple solution close #6, close #7
+
+commit 3442be3a312c6eaa569dd758770a40c102d56013
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Thu Jul 9 20:16:06 2015 -0500
+
+    only pow not working
+
+commit 41a397503af47962d2f795bcd2e76a6617bf11b3
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Thu Jul 9 19:29:18 2015 -0500
+
+    everything but modeq & pow working
+
+commit 41d6fac12630762ad96f77fdb129cc767c55182f
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 8 21:53:22 2015 -0500
+
+    made the syntax prettier
+
+commit ce5aea6637f6a1a02994336046f8987a0f9b4bdc
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 8 21:33:53 2015 -0500
+
+    cleaned up unused functions
+
+commit 088da4ee469dba63f6048218aa2d8ae1ce7d068b
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 8 21:31:48 2015 -0500
+
+    plus, minus, multiply all working consistently
+
+commit 736e29b9faa86b0491a20b383cc28facd17e3f32
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 8 14:10:47 2015 -0500
+
+    added *0 & *1 rules
+
+commit 2ffefae7c2aff0770783acb5ee5c349dabc74958
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 8 14:08:21 2015 -0500
+
+    multiplies digits is working
+
+commit 44eb05a1b3185ce0d30ac46f03fe63bd3bd79a5e
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Mon Jul 6 20:38:24 2015 -0500
+
+    added plus and subtract digits
+
+commit a5b438c0a2bfcbe8b85e39af61ab7c1b183ca056
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Mon Jul 6 16:39:05 2015 -0500
+
+    deleted executables
+
+commit 3f9c0d6626040ec046ea1dfd97e0e190c4145e76
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Mon Jul 6 16:38:24 2015 -0500
+
+    changed representation so x[0] is last digit
+
+commit 9e9845666b9cdcc8ffa775f5b5bab457be169dde
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Sun Jul 5 14:36:14 2015 -0500
+
+    added travis file
+
+commit a50dd16a220691d8e94e2102e781928a9935197d
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Sun Jul 5 14:33:11 2015 -0500
+
+    modifying shift_left and shift_right digits
+
+commit d560dc57fabecd05bfbb1cbeb405eb1a69013f9d
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Sun Jul 5 14:02:35 2015 -0500
+
+    removed executables
+
+commit 359883c23c02b4225ae96fe966e1f14ebc119482
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Sun Jul 5 14:01:52 2015 -0500
+
+    added solution to >>= and <<=
+
+commit f744ed35faa8b1fa400f0a52da5dc4bf435e10c3
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Sun Jul 5 00:11:32 2015 -0500
+
+    added more unit tests, still failing 47 tests, but passing 28
+
+commit 8102ea848bf97f2b27de8104408e2f1278208128
+Merge: 0575c58 a1a1ac0
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Sat Jul 4 16:33:32 2015 -0500
+
+    Merge branch 'dev'
+
+commit a1a1ac0e10c36bf12b37253cb7e6bb60f0c0f1df
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Sat Jul 4 16:33:10 2015 -0500
+
+    added unit tests, close #6, failing all tests as expected
+
+commit 0575c58e7a8f503c3323b6c1174f5c6d9bbc4b88
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Sat Jul 4 16:32:30 2015 -0500
+
+    added unit tests, close #6, failing all tests as expected
+
+commit fd7dc3e6ad5eb429cd7534ebea65cf0b1339b48e
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 1 17:05:55 2015 -0500
+
+    remove temp
+
+commit 7880b17663adebd610b08195ef1c88a8baaf9f73
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 1 17:05:20 2015 -0500
+
+    updated readme
+
+commit b2466ba788b6e3b0cf2ae1d77cb442885d7b2fe8
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 1 17:02:23 2015 -0500
+
+    correct README
+
+commit 42cf10584a37ed6a48ebc4463deb65540ff723f4
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 1 17:01:45 2015 -0500
+
+    bad copy
+
+commit 8d6fb7556a551fb27663cb2202694a3f43971b0b
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 1 17:00:51 2015 -0500
+
+    created dev branch, close #4
+
+commit 5515e627d76681ff82ebe1f67c3260ea555e6cf4
+Author: bkvanvig <bkvanvig104@yahoo.com>
+Date:   Wed Jul 1 16:58:16 2015 -0500
+
+    made initial copy to local machine, close #1, close #2, close #3
