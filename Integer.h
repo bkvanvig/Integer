@@ -53,8 +53,57 @@ bool lt_digits(II1 b1, II1 e1, II2 b2, II2 e2){
         return true;
 
     // otherwise, same magnitude, must compare digits individually
-    for (int i = 0; i < num1.size(); ++i){
-        if (num1.at(i)!= num2.at(i))
+    for (int i = num1.size(); i > 0; --i){
+        //cout << num1.at(i-1) << " vs " << num2.at(i-1) << endl;
+        if (num1.at(i-1) < num2.at(i-1))
+            return true;
+        if (num1.at(i-1) == num2.at(i-1))
+            continue;
+        if (num1.at(i-1) > num2.at(i-1))
+            return false;
+    }
+    return false;
+}
+// --------
+// <digits
+// --------
+
+/**
+ * @param b  an iterator to the beginning of an input  sequence (inclusive)
+ * @param e  an iterator to the end       of an input  sequence (exclusive)
+ * @param b2 an iterator to the beginning of an input  sequence (inclusive)
+ * @param e2 an iterator to the end       of an input  sequence (exclusive)
+ * @return   a bool 
+ * the sequences are of decimal digits
+ * output whether ([b1, e1) < [b2, e2))
+ */
+template <typename II1, typename II2>
+bool eq_digits(II1 b1, II1 e1, II2 b2, II2 e2){
+    std::vector<int> num1;
+    std::vector<int> num2;
+
+    while (b1 != e1){ 
+        num1.push_back(*b1++);
+    }
+    while (b2 != e2){ 
+        num2.push_back(*b2++);}
+
+    // if num1 has larger magnitude, false
+    if (num1.size() > num2.size())
+        return false;
+
+    // if num1 has smaller magnitude, true
+    if (num1.size() < num2.size())
+        return false;
+
+    // otherwise, same magnitude, must compare digits individually
+    for (int i = num1.size(); i > 0; --i){
+        //cout << num1.at(i-1) << " vs " << num2.at(i-1) << endl;
+        if (num1.at(i-1) < num2.at(i-1))
+            return false;
+        if (num1.at(i-1) == num2.at(i-1))
+            continue;
+        if (num1.at(i-1) > num2.at(i-1))
             return false;
     }
     return true;
@@ -304,6 +353,12 @@ FI multiplies_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
     while (b2 != e2){ 
         num2.push_back(*b2++);}
     result.resize(num1.size() + num2.size());
+    if (num1.size() < num2.size()){
+        std::vector<int> v(num1.size());
+        v = num1;
+        num1 = num2;
+        num2 = v;
+    }
 
     /* This assumes the natural form of the bottom number being shorter or equal to the top number
      * In this case, the top number is num1, the bottom number is num2
@@ -364,18 +419,20 @@ FI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
      * This algorithm does NOT assume num1 is bigger than num2
      * OR that both are non-zero
      */
-
+    int diff = 0;
     std::vector<int> num1;
     std::vector<int> num2;
-    std::vector<int> result;
-    vector<int>::iterator y = result.begin();
 
+    // This result vector will hold the final answer
+    std::vector<int> result;
+
+    // Read numbers into vectors
     while (b1 != e1){ 
         num1.push_back(*b1++);
     }
     while (b2 != e2){ 
         num2.push_back(*b2++);}
-    result.resize(num1.size() + num2.size());
+    
 
      // If num1 < num2 then return 0 as answer
     if (num1.size() <= num2.size() && num1.back() < num2.back()){
@@ -398,8 +455,126 @@ FI divides_digits (II1 b1, II1 e1, II2 b2, II2 e2, FI x) {
         }
         return x;
     }
-    // else regular divide
 
+    // else regular divide
+    std::vector<int> numshift(num1.size());
+    result.resize(num1.size());
+    std::vector<int> one(1);
+    one.at(0) =1;
+
+    vector<int>::iterator it = numshift.begin();
+
+    diff = num1.size()-num2.size();
+    if (diff > 0){
+        it = shift_left_digits(one.begin(), one.end(), diff, it);
+    }
+    
+    // cout << "shifted ";
+    //     for (int l = numshift.size(); l >0; --l){
+    //         cout << numshift.at(l-1) << " ";
+
+    //     }
+    //     cout << endl;
+
+    //     cout << "num1 ";
+    //     for (int l = num1.size(); l >0; --l){
+    //         cout << num1.at(l-1) << " ";
+
+    //     }
+    //     cout << endl;
+
+    //     cout << "num2 ";
+    //     for (int l = num2.size(); l >0; --l){
+    //         cout << num2.at(l-1) << " ";
+
+    //     }
+    //     cout << endl;
+
+    //     cout << "result ";
+    //     for (int l = result.size(); l >0; --l){
+    //         cout << result.at(l-1) << " ";
+
+    //     }
+    //     cout << endl;
+
+    while (num1.size() > 1 || (num1.size() == 1 && num1.front() != 0)){
+
+        int size = num1.size() + num2.size()+1;
+        // Multiply shifted 1's place by num2
+        std::vector<int> tmp(size);
+        multiplies_digits(num2.begin(), num2.end(), numshift.begin(), numshift.end(), tmp.begin());
+        for (int j = 0; j <= tmp.size(); ++j){
+                if (tmp.back() == 0)
+                    tmp.pop_back();
+            }
+
+        // cout << "tmp ";
+        // for (int l = tmp.size(); l >0; --l){
+        //     cout << tmp.at(l-1) << " ";
+
+        // }
+        // cout << endl;
+        
+        if (lt_digits(tmp.begin(), tmp.end(), num1.begin(), num1.end()) 
+            || eq_digits(tmp.begin(), tmp.end(), num1.begin(), num1.end())){
+            // This means the shifted digit is part of the answer, 
+            // should be subtracted until no longer able
+
+            // Subtract the multiplied value and copy value to num1
+            std::vector<int> v(num1.size());
+            auto m = minus_digits(num1.begin(), num1.end(), tmp.begin(), tmp.end(), v.begin());
+            copy(v.begin(), m, num1.begin());
+
+            // add the shifted num to result and copy into result
+            std::vector<int> w(result.size());
+            plus_digits(numshift.begin(), numshift.end(), result.begin(), result.end(), w.begin());
+            copy (w.begin(), w.end(), result.begin());
+            
+            for (int j = 0; j <= num1.size(); ++j){
+                if (num1.back() == 0)
+                    num1.pop_back();
+            }
+
+        }
+        else{
+            std::vector<int> v(numshift.size()-1);
+            shift_right_digits(numshift.begin(), numshift.end(), 1, v.begin());
+            copy(v.begin(), v.end(), numshift.begin());
+            numshift.pop_back();
+        }
+        // cout << "shifted ";
+        // for (int l = numshift.size(); l >0; --l){
+        //     cout << numshift.at(l-1) << " ";
+
+        // }
+        // cout << endl;
+
+        // cout << "num1 ";
+        // for (int l = num1.size(); l >0; --l){
+        //     cout << num1.at(l-1) << " ";
+
+        // }
+        // cout << endl;
+
+        // cout << "result ";
+        // for (int l = result.size(); l >0; --l){
+        //     cout << result.at(l-1) << " ";
+
+        // }
+        // cout << endl;
+
+        if (lt_digits(num1.begin(), num1.end(), num2.begin(), num2.end())){
+            //cout << "num1 < num2";
+            break;
+        }
+
+
+
+    }
+     for (int i = 0; i < result.size(); ++i){
+        *x = result.at(i);
+        ++x;
+     }   
 
 
     return x;}
@@ -1023,6 +1198,25 @@ class Integer {
          */
         Integer& operator /= (const Integer& rhs) {
             // <your code>
+            std::vector<int> v(_size);
+            auto b1 = _x.begin();
+            auto b2 = rhs._x.begin();
+            auto e1 = _x.end();
+            auto e2 = rhs._x.end();
+            auto x = v.begin();
+
+            x = divides_digits(b1, e1, b2, e2, x);
+
+            // Change sign flag according to signs of digits
+            if (_neg && !rhs._neg)
+                _neg = true;
+            else if (!_neg && rhs._neg)
+                _neg = true;
+            else
+                _neg = false;
+
+            copy(v.begin(), v.end(), _x.begin());
+            _size = trim();
             return *this;}
 
         // -----------

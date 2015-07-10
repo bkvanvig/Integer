@@ -271,30 +271,30 @@ TEST(IntegerFixture, divide_1){
     vector<int> x = {0, 0, 0, 0, 0, 0};
     vector<int>::iterator x1 = divides_digits(v.begin(), v.begin()+3, w.begin()+2, w.begin()+3, x.begin());
     vector<int> y = {0, 0, 1, 0, 0, 0};
-    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    ASSERT_EQ(x, y);
+    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    //ASSERT_EQ(x, y);
     //ASSERT_TRUE(false);
 }
 
 TEST(IntegerFixture, divide_2){
-    vector<int> v = {3, 0, 0, 0, 0, 0};
+    vector<int> v = {0, 0, 3, 0, 0, 0};
     vector<int> w = {1, 2, 3, 4, 5, 6};
     vector<int> x = {0, 0, 0, 0, 0, 0};
     vector<int>::iterator x1 = divides_digits(v.begin(), v.begin()+3, w.begin()+4, w.begin()+5, x.begin());
-    vector<int> y = {0, 0, 0, 0, 6, 0};
-    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    ASSERT_EQ(x, y);
+    vector<int> y = {0, 6, 0, 0, 0, 0};
+    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    //ASSERT_EQ(x, y);
     //ASSERT_TRUE(false);
 }
 
 TEST(IntegerFixture, divide_3){
-    vector<int> v = {3, 0, 0, 0, 0, 0};
+    vector<int> v = {0, 0, 0, 3, 0, 0};
     vector<int> w = {1, 2, 3, 4, 5, 6};
     vector<int> x = {0, 0, 0, 0, 0, 0};
     vector<int>::iterator x1 = divides_digits(v.begin(), v.begin()+4, w.begin()+3, w.begin()+4, x.begin());
-    vector<int> y = {0, 0, 7, 5, 0, 0};
-    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    ASSERT_EQ(x, y);
+    vector<int> y = {0, 5, 7, 0, 0, 0};
+    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    //ASSERT_EQ(x, y);
     //ASSERT_TRUE(false);
 }
 
@@ -304,8 +304,8 @@ TEST(IntegerFixture, divide_4){
     vector<int> x = {0, 0, 0, 0, 0, 0};
     vector<int>::iterator x1 = divides_digits(v.begin(), v.begin()+1, w.begin(), w.begin()+1, x.begin());
     vector<int> y = {3, 0, 0, 0, 0, 0};
-    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    ASSERT_EQ(x, y);
+    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    //ASSERT_EQ(x, y);
     //ASSERT_TRUE(false);
 }
 
@@ -315,8 +315,18 @@ TEST(IntegerFixture, divide_5){
     vector<int> x = {0, 0, 0, 0, 0, 0};
     vector<int>::iterator x1 = divides_digits(w.begin(), w.begin()+1, v.begin(), v.begin()+1, x.begin());
     vector<int> y = {0, 0, 0, 0, 0, 0};
-    //ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
-    ASSERT_EQ(x, y);
+    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    //ASSERT_EQ(x, y);
+    //ASSERT_TRUE(false);
+}
+TEST(IntegerFixture, divide_6){
+    vector<int> v = {0, 0, 1, 0, 0, 0};
+    vector<int> w = {1, 3, 3, 4, 5, 6};
+    vector<int> x = {0, 0, 0, 0, 0, 0};
+    vector<int>::iterator x1 = divides_digits(v.begin(), v.begin()+3, w.begin()+1, w.begin()+3, x.begin());
+    vector<int> y = {3, 0, 0, 0, 0, 0};
+    ASSERT_TRUE(equal(x.begin(), x1, y.begin()));
+    //ASSERT_EQ(x, y);
     //ASSERT_TRUE(false);
 }
 
@@ -704,7 +714,9 @@ TEST(IntegerFixture, diveq_1){
     Integer<int> w = 3242;
     Integer<int> u = 3;
     v /= w;
-    ASSERT_TRUE(v==u);
+    //ASSERT_TRUE(v==u);
+    ASSERT_EQ(v, u);
+
 }
 
 TEST(IntegerFixture, diveq_2){
@@ -712,7 +724,8 @@ TEST(IntegerFixture, diveq_2){
     Integer<int> w = 25;
     Integer<int> u = 4;
     v /= w;
-    ASSERT_TRUE(v==u);
+    //ASSERT_TRUE(v==u);
+    ASSERT_EQ(v, u);
 }
 
 TEST(IntegerFixture, diveq_3){
@@ -720,7 +733,8 @@ TEST(IntegerFixture, diveq_3){
     Integer<int> w = 235;
     Integer<int> u = 234;
     v /= w;
-    ASSERT_TRUE(v==u);
+    //ASSERT_TRUE(v==u);
+    ASSERT_EQ(v, u);
 }
 
 //TEST(IntegerFixture, diveq_4){}
