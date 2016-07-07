@@ -75,7 +75,7 @@ bool lt_digits(II1 b1, II1 e1, II2 b2, II2 e2){
  * @param e2 an iterator to the end       of an input  sequence (exclusive)
  * @return   a bool 
  * the sequences are of decimal digits
- * output whether ([b1, e1) < [b2, e2))
+ * output whether ([b1, e1) = [b2, e2))
  */
 template <typename II1, typename II2>
 bool eq_digits(II1 b1, II1 e1, II2 b2, II2 e2){
@@ -92,7 +92,7 @@ bool eq_digits(II1 b1, II1 e1, II2 b2, II2 e2){
     if (num1.size() > num2.size())
         return false;
 
-    // if num1 has smaller magnitude, true
+    // if num1 has smaller magnitude, false
     if (num1.size() < num2.size())
         return false;
 
